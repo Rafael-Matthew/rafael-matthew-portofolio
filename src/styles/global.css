@@ -39,20 +39,20 @@ body {
 
 /* Custom Soft Utilities */
 .glass {
-  @apply bg-surface border-2 border-slate-200 shadow-sm backdrop-blur-md;
+  @apply bg-white/60 border border-white/40 shadow-sm backdrop-blur-xl;
 }
 
 .glass-card {
-  @apply bg-surface border-2 border-slate-200 shadow-md rounded-2xl transition-all duration-300;
+  @apply bg-white/70 border border-white/40 shadow-sm rounded-3xl backdrop-blur-xl transition-all duration-300;
 }
 
 .glass-card:hover {
-  @apply shadow-[0_12px_40px_rgba(37,99,235,0.15)] -translate-y-1 border-primary;
+  @apply shadow-lg shadow-primary/10 -translate-y-1 border-primary/30;
 }
 
 /* Soft Highlight Text */
 .text-gradient {
-  @apply text-primary;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-500;
 }
 
 /* Scrollbar Soft Styling */
@@ -69,3 +69,18 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
 }
+/* Custom Scrollbar for deployment zone */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.2);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 235, 0.5);
+}
+

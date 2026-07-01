@@ -1,0 +1,523 @@
+[
+  {
+    "id": "autoinspect-cell",
+    "name": "AutoInspect Cell",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "Software Engineering"
+    ],
+    "impact": "Successfully developed and deployed AutoInspect Cell.",
+    "problem": "Required a solution for autoinspect cell.",
+    "solution": "Developed a Software Engineering application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/AutoInspect-Cell",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "autospector",
+    "name": "Autospector",
+    "status": "Completed",
+    "type": "Freelance Project",
+    "techStack": [
+      "React",
+      "Next.js",
+      "TypeScript"
+    ],
+    "impact": "Successfully developed and deployed Autospector.",
+    "problem": "Required a solution for autospector.",
+    "solution": "Developed a React, Next.js, TypeScript application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/autospector",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "dawnbase",
+    "name": "Dawnbase",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "TypeScript",
+      "C#",
+      "Unity"
+    ],
+    "impact": "Successfully developed and deployed Dawnbase.",
+    "problem": "Required a solution for dawnbase.",
+    "solution": "Developed a TypeScript, C#, Unity application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/dawnbase",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "ecommerce-yk",
+    "name": "Ecommerce Yk",
+    "status": "Completed",
+    "type": "Freelance Project",
+    "techStack": [
+      "Software Engineering"
+    ],
+    "impact": "Successfully developed and deployed Ecommerce Yk.",
+    "problem": "Required a solution for ecommerce yk.",
+    "solution": "Developed a Software Engineering application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/ecommerce-yk",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "garapan-joki",
+    "name": "Garapan Joki",
+    "status": "Completed",
+    "type": "Freelance Project",
+    "techStack": [
+      "Software Engineering"
+    ],
+    "impact": "Successfully developed and deployed Garapan Joki.",
+    "problem": "Required a solution for garapan joki.",
+    "solution": "Developed a Software Engineering application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/garapan-joki",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "grafkom2",
+    "name": "Grafkom2",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "C#",
+      "Unity"
+    ],
+    "impact": "Successfully developed and deployed Grafkom2.",
+    "problem": "Required a solution for grafkom2.",
+    "solution": "Developed a C#, Unity application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/Grafkom2",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "guidedbythelight",
+    "name": "GuidedByTheLight",
+    "status": "Completed",
+    "type": "Game Development",
+    "techStack": [
+      "Software Engineering"
+    ],
+    "impact": "Successfully developed and deployed GuidedByTheLight.",
+    "problem": "Required a solution for guidedbythelight.",
+    "solution": "Developed a Software Engineering application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/GuidedByTheLight",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "inventary-be",
+    "name": "Inventary Be",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "Software Engineering"
+    ],
+    "impact": "Successfully developed and deployed Inventary Be.",
+    "problem": "Required a solution for inventary be.",
+    "solution": "Developed a Software Engineering application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/inventary-be",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "inventary-fe",
+    "name": "Inventary Fe",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "Software Engineering"
+    ],
+    "impact": "Successfully developed and deployed Inventary Fe.",
+    "problem": "Required a solution for inventary fe.",
+    "solution": "Developed a Software Engineering application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/inventary-fe",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "metalmayhem-tanktitans",
+    "name": "MetalMayhem TankTitans",
+    "status": "Completed",
+    "type": "Game Development",
+    "techStack": [
+      "Software Engineering"
+    ],
+    "impact": "Successfully developed and deployed MetalMayhem TankTitans.",
+    "problem": "Required a solution for metalmayhem tanktitans.",
+    "solution": "Developed a Software Engineering application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/metalMayhem-TankTitans",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "microboost-android",
+    "name": "Microboost Android",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "Software Engineering"
+    ],
+    "impact": "Successfully developed and deployed Microboost Android.",
+    "problem": "Required a solution for microboost android.",
+    "solution": "Developed a Software Engineering application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/microboost-android",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "microboost-be",
+    "name": "Microboost Be",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "Express",
+      "TypeScript"
+    ],
+    "impact": "Successfully developed and deployed Microboost Be.",
+    "problem": "Required a solution for microboost be.",
+    "solution": "Developed a Express, TypeScript application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/microboost-be",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "proyek-ai-client",
+    "name": "Proyek Ai Client",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "React",
+      "TypeScript"
+    ],
+    "impact": "Successfully developed and deployed Proyek Ai Client.",
+    "problem": "Required a solution for proyek ai client.",
+    "solution": "Developed a React, TypeScript application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/proyek-ai-client",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "proyek-fpw",
+    "name": "Proyek Fpw",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "React",
+      "MongoDB",
+      "TypeScript"
+    ],
+    "impact": "Successfully developed and deployed Proyek Fpw.",
+    "problem": "Required a solution for proyek fpw.",
+    "solution": "Developed a React, MongoDB, TypeScript application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/proyek-fpw",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "proyek-softest",
+    "name": "Proyek Softest",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "C#",
+      "Unity"
+    ],
+    "impact": "Successfully developed and deployed Proyek Softest.",
+    "problem": "Required a solution for proyek softest.",
+    "solution": "Developed a C#, Unity application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/proyek-softest",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "proyek-ws",
+    "name": "Proyek Ws",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "Express",
+      "JavaScript",
+      "C#",
+      "Unity"
+    ],
+    "impact": "Successfully developed and deployed Proyek Ws.",
+    "problem": "Required a solution for proyek ws.",
+    "solution": "Developed a Express, JavaScript, C#, Unity application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/proyek-ws",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "proyekbwp",
+    "name": "Proyekbwp",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "JavaScript",
+      "PHP",
+      "Laravel"
+    ],
+    "impact": "Successfully developed and deployed Proyekbwp.",
+    "problem": "Required a solution for proyekbwp.",
+    "solution": "Developed a JavaScript, PHP, Laravel application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/proyekbwp",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "proyekcsa",
+    "name": "ProyekCSA",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "React",
+      "JavaScript"
+    ],
+    "impact": "Successfully developed and deployed ProyekCSA.",
+    "problem": "Required a solution for proyekcsa.",
+    "solution": "Developed a React, JavaScript application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/ProyekCSA",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "proyekcsa-be",
+    "name": "ProyekCSA BE",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "Express",
+      "JavaScript"
+    ],
+    "impact": "Successfully developed and deployed ProyekCSA BE.",
+    "problem": "Required a solution for proyekcsa be.",
+    "solution": "Developed a Express, JavaScript application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/ProyekCSA-BE",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "proyek-ai-backend",
+    "name": "Proyek Ai Backend",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "Software Engineering"
+    ],
+    "impact": "Successfully developed and deployed Proyek Ai Backend.",
+    "problem": "Required a solution for proyek ai backend.",
+    "solution": "Developed a Software Engineering application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/proyek_ai_backend",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  },
+  {
+    "id": "proyek-ai-macanan",
+    "name": "Proyek Ai Macanan",
+    "status": "Completed",
+    "type": "College Project",
+    "techStack": [
+      "Software Engineering"
+    ],
+    "impact": "Successfully developed and deployed Proyek Ai Macanan.",
+    "problem": "Required a solution for proyek ai macanan.",
+    "solution": "Developed a Software Engineering application to address the requirements.",
+    "role": "Full-Stack Developer",
+    "keyFeatures": [
+      "Core business logic implementation",
+      "User-friendly interface design",
+      "Data persistence and state management"
+    ],
+    "demoUrl": "#",
+    "githubUrl": "https://github.com/Rafael-Matthew/proyek_ai_macanan",
+    "focus": [
+      "Developer",
+      "Lecturer"
+    ]
+  }
+]

@@ -7,7 +7,7 @@ import { supabase } from '../../lib/supabaseClient';
 const { data: projects, error } = await supabase
   .from('projects')
   .select('*')
-  .eq('status', 'published')
+  .neq('status', 'draft')
   .order('created_at', { ascending: false });
 
 if (error) {

@@ -10,7 +10,7 @@ const { data: project, error } = await supabase
   .from('projects')
   .select('*, project_images(image_url, sort_order)')
   .eq('slug', slug)
-  .eq('status', 'published')
+  .neq('status', 'draft')
   .single();
 
 if (error || !project) {
