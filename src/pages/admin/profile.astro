@@ -1,0 +1,114 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { supabaseAdmin } from '../../lib/supabaseServer';
+
+let profile = null;
+const { data, error } = await supabaseAdmin.from('profiles').select('*').limit(1).single();
+if (!error && data) {
+  profile = data;
+}
+---
+
+<AdminLayout>
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-8">Profile Settings</h1>
+    
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
+      <form id="profile-form" class="space-y-6">
+        <input type="hidden" id="id" value={profile?.id || ''} />
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700">Full Name</label>
+            <input type="text" id="full_name" value={profile?.full_name || ''} class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-slate-800 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all" />
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700">Email</label>
+            <input type="email" id="email" value={profile?.email || ''} class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-slate-800 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all" />
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-slate-700">Headline</label>
+          <input type="text" id="headline" value={profile?.headline || ''} class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-slate-800 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all" />
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-slate-700">Bio</label>
+          <textarea id="bio" rows="4" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-slate-800 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all resize-none">{profile?.bio || ''}</textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700">Phone</label>
+            <input type="text" id="phone" value={profile?.phone || ''} class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-slate-800 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all" />
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700">Location</label>
+            <input type="text" id="location" value={profile?.location || ''} class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-slate-800 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all" />
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700">LinkedIn URL</label>
+            <input type="text" id="linkedin_url" value={profile?.linkedin_url || ''} class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-slate-800 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all" />
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700">GitHub URL</label>
+            <input type="text" id="github_url" value={profile?.github_url || ''} class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-slate-800 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all" />
+          </div>
+        </div>
+
+        <div id="status-msg" class="hidden p-3 rounded-xl text-sm border"></div>
+
+        <button type="submit" id="save-btn" class="px-6 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold transition-all shadow-sm hover:shadow-md">
+          Save Changes
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    import { supabase } from '../../lib/supabaseClient';
+
+    const form = document.getElementById('profile-form') as HTMLFormElement;
+    const saveBtn = document.getElementById('save-btn') as HTMLButtonElement;
+    const statusMsg = document.getElementById('status-msg') as HTMLDivElement;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      saveBtn.disabled = true;
+      saveBtn.innerText = 'Saving...';
+      
+      const id = (document.getElementById('id') as HTMLInputElement).value;
+      const data = {
+        full_name: (document.getElementById('full_name') as HTMLInputElement).value,
+        email: (document.getElementById('email') as HTMLInputElement).value,
+        headline: (document.getElementById('headline') as HTMLInputElement).value,
+        bio: (document.getElementById('bio') as HTMLTextAreaElement).value,
+        phone: (document.getElementById('phone') as HTMLInputElement).value,
+        location: (document.getElementById('location') as HTMLInputElement).value,
+        linkedin_url: (document.getElementById('linkedin_url') as HTMLInputElement).value,
+        github_url: (document.getElementById('github_url') as HTMLInputElement).value,
+      };
+
+      let result;
+      if (id) {
+        result = await supabase.from('profiles').update(data).eq('id', id);
+      } else {
+        result = await supabase.from('profiles').insert([data]);
+      }
+
+      saveBtn.disabled = false;
+      saveBtn.innerText = 'Save Changes';
+      statusMsg.classList.remove('hidden', 'bg-red-500/10', 'text-red-400', 'bg-green-500/10', 'text-green-400');
+
+      if (result.error) {
+        statusMsg.classList.add('bg-red-500/10', 'text-red-400');
+        statusMsg.innerText = result.error.message;
+      } else {
+        statusMsg.classList.add('bg-green-500/10', 'text-green-400');
+        statusMsg.innerText = 'Profile updated successfully!';
+        setTimeout(() => statusMsg.classList.add('hidden'), 3000);
+      }
+    });
+  </script>
+</AdminLayout>

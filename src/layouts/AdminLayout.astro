@@ -1,0 +1,70 @@
+---
+import { supabase } from '../lib/supabaseClient';
+
+// Get current path
+const currentPath = Astro.url.pathname;
+const isLoginPage = currentPath === '/admin/login';
+
+// Check cookies for supabase auth (in a real scenario, use @supabase/ssr, but for simplicity we rely on client-side check or a basic server check if possible)
+// Since we are using standard supabase-js, we'll implement a client-side protected layout that redirects to login if not authenticated.
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin Dashboard | Rafael Matthew</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-surface text-text-main font-sans min-h-screen flex">
+    
+    {!isLoginPage && (
+      <aside class="w-64 bg-white border-r border-slate-100 hidden md:flex flex-col shadow-sm">
+        <div class="p-6 border-b border-slate-100">
+          <a href="/admin/dashboard" class="text-2xl font-bold text-slate-800 tracking-tighter">
+            Admin<span class="text-primary">Panel</span>
+          </a>
+        </div>
+        <nav class="flex-grow px-4 py-6 space-y-1 overflow-y-auto">
+          <a href="/admin/dashboard" class={`block px-4 py-2.5 rounded-xl font-medium transition-colors ${currentPath === '/admin/dashboard' ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary'}`}>Dashboard</a>
+          <a href="/admin/profile" class={`block px-4 py-2.5 rounded-xl font-medium transition-colors ${currentPath === '/admin/profile' ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary'}`}>Profile</a>
+          <a href="/admin/projects" class={`block px-4 py-2.5 rounded-xl font-medium transition-colors ${currentPath.startsWith('/admin/projects') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary'}`}>Projects</a>
+          <a href="/admin/skills" class={`block px-4 py-2.5 rounded-xl font-medium transition-colors ${currentPath.startsWith('/admin/skills') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary'}`}>Skills</a>
+          <a href="/admin/experiences" class={`block px-4 py-2.5 rounded-xl font-medium transition-colors ${currentPath.startsWith('/admin/experiences') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary'}`}>Experiences</a>
+          <a href="/admin/education" class={`block px-4 py-2.5 rounded-xl font-medium transition-colors ${currentPath.startsWith('/admin/education') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary'}`}>Education</a>
+          <a href="/admin/certificates" class={`block px-4 py-2.5 rounded-xl font-medium transition-colors ${currentPath.startsWith('/admin/certificates') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary'}`}>Certificates</a>
+          <a href="/admin/articles" class={`block px-4 py-2.5 rounded-xl font-medium transition-colors ${currentPath.startsWith('/admin/articles') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary'}`}>Articles</a>
+          <a href="/admin/messages" class={`block px-4 py-2.5 rounded-xl font-medium transition-colors ${currentPath.startsWith('/admin/messages') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary'}`}>Messages</a>
+        </nav>
+        <div class="p-4 border-t border-slate-100 bg-slate-50/50">
+          <button id="logout-btn" class="w-full text-left px-4 py-2.5 font-medium text-red-500 hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors flex items-center">
+            Sign Out
+          </button>
+        </div>
+      </aside>
+    )}
+
+    <main class={`flex-grow ${isLoginPage ? 'flex items-center justify-center' : 'p-8 overflow-y-auto'}`}>
+      <slot />
+    </main>
+
+    {!isLoginPage && (
+      <script>
+        import { supabase } from '../lib/supabaseClient';
+        
+        // Client-side auth check
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (!session) {
+            window.location.href = '/admin/login';
+          }
+        });
+
+        document.getElementById('logout-btn')?.addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '/admin/login';
+        });
+      </script>
+    )}
+  </body>
+</html>

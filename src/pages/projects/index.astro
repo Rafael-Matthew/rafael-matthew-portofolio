@@ -1,0 +1,36 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import ProjectList from '../../components/projects/ProjectList';
+import { supabase } from '../../lib/supabaseClient';
+
+// Fetch projects from Supabase
+const { data: projects, error } = await supabase
+  .from('projects')
+  .select('*')
+  .eq('status', 'published')
+  .order('created_at', { ascending: false });
+
+if (error) {
+  console.error("Error fetching projects:", error);
+}
+
+const initialProjects = projects || [];
+---
+
+<MainLayout title="Projects" description="Explore the portfolio projects of Rafael Matthew Satrio, including full-stack development, frontend, and software testing work.">
+  <section class="py-20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          My <span class="text-gradient">Projects</span>
+        </h1>
+        <div class="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+        <p class="text-text-muted max-w-2xl mx-auto text-lg">
+          Here are some of the projects I've worked on, ranging from college assignments to freelance work.
+        </p>
+      </div>
+
+      <ProjectList client:load initialProjects={initialProjects} />
+    </div>
+  </section>
+</MainLayout>

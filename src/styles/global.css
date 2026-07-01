@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563EB; /* Cloud Blue */
+  --color-primary-dark: #1D4ED8; /* Slightly darker Cloud Blue for hover */
+  --color-secondary: #06B6D4; /* Cyan AI */
+  --color-accent: #8B5CF6; /* Soft Purple */
+  --color-background: #F8FAFC; /* Soft Cloud White */
+  --color-surface: #FFFFFF; /* Pure White for cards */
+  --color-text-main: #0F172A; /* Deep Navy */
+  --color-text-muted: #64748B; /* Slate Gray */
+  --color-success: #22C55E; /* Fresh Green */
+  --font-sans: 'Ubuntu', sans-serif;
+}
+
+:root {
+  /* Cloud & Tech Light Theme */
+  --color-primary: #2563EB;
+  --color-primary-dark: #1D4ED8;
+  --color-secondary: #06B6D4;
+  --color-accent: #8B5CF6;
+  --color-background: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-text-main: #0F172A;
+  --color-text-muted: #64748B;
+  --color-success: #22C55E;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-background);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+}
+
+body {
+  @apply antialiased min-h-screen bg-background text-text-main overflow-x-hidden;
+}
+
+/* Custom Soft Utilities */
+.glass {
+  @apply bg-surface border-2 border-slate-200 shadow-sm backdrop-blur-md;
+}
+
+.glass-card {
+  @apply bg-surface border-2 border-slate-200 shadow-md rounded-2xl transition-all duration-300;
+}
+
+.glass-card:hover {
+  @apply shadow-[0_12px_40px_rgba(37,99,235,0.15)] -translate-y-1 border-primary;
+}
+
+/* Soft Highlight Text */
+.text-gradient {
+  @apply text-primary;
+}
+
+/* Scrollbar Soft Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}

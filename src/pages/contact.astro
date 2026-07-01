@@ -1,0 +1,70 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import ContactForm from '../components/contact/ContactForm';
+import { Mail, MapPin, Link } from 'lucide-react';
+---
+
+<MainLayout title="Contact" description="Get in touch with Rafael Matthew Satrio for collaborations, opportunities, or inquiries.">
+  <section class="py-20 min-h-[90vh] flex items-center">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-text-main">
+          Get in Touch
+        </h1>
+        <div class="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+        <p class="text-text-muted max-w-2xl mx-auto text-lg">
+          Have a question or want to work together? Leave a message, and I'll get back to you as soon as possible.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+        
+        {/* Contact Info */}
+        <div class="space-y-8 lg:col-span-1">
+          <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex items-start space-x-4">
+            <div class="p-3 bg-primary/10 rounded-xl text-primary mt-1">
+              <Mail size={24} />
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-1 text-slate-800">Email</h3>
+              <a href="mailto:rafaelmatthew2305@gmail.com" class="text-slate-600 hover:text-primary transition-colors">
+                rafaelmatthew2305@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex items-start space-x-4">
+            <div class="p-3 bg-secondary/10 rounded-xl text-secondary mt-1">
+              <MapPin size={24} />
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-1 text-slate-800">Location</h3>
+              <p class="text-slate-600">
+                Surabaya, Indonesia
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex items-start space-x-4">
+            <div class="p-3 bg-accent/10 rounded-xl text-accent mt-1">
+              <Link size={24} />
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-1 text-slate-800">LinkedIn</h3>
+              <a href="https://linkedin.com/in/r-matthew" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:text-accent transition-colors">
+                linkedin.com/in/r-matthew
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Contact Form */}
+        <div class="lg:col-span-2">
+          <ContactForm client:load />
+        </div>
+
+      </div>
+    </div>
+  </section>
+</MainLayout>

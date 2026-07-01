@@ -1,0 +1,34 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import CertificateGrid from '../components/certificates/CertificateGrid';
+import { supabase } from '../lib/supabaseClient';
+
+const { data: certificates, error } = await supabase
+  .from('certificates')
+  .select('*')
+  .order('sort_order', { ascending: true });
+
+if (error) {
+  console.error("Error fetching certificates:", error);
+}
+
+const certData = certificates || [];
+---
+
+<MainLayout title="Certificates" description="Professional certifications and achievements of Rafael Matthew Satrio.">
+  <section class="py-20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Licenses & <span class="text-gradient">Certifications</span>
+        </h1>
+        <div class="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+        <p class="text-text-muted max-w-2xl mx-auto text-lg">
+          Official recognitions of my skills and continuous learning efforts.
+        </p>
+      </div>
+
+      <CertificateGrid client:load certificates={certData} />
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,34 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SkillGrid from '../components/skills/SkillGrid';
+import { supabase } from '../lib/supabaseClient';
+
+const { data: skills, error } = await supabase
+  .from('skills')
+  .select('*')
+  .order('sort_order', { ascending: true });
+
+if (error) {
+  console.error("Error fetching skills:", error);
+}
+
+const initialSkills = skills || [];
+---
+
+<MainLayout title="Skills & Technologies" description="Discover the technical and soft skills of Rafael Matthew Satrio, ranging from Frontend development to Cloud technologies.">
+  <section class="py-20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Skills & <span class="text-gradient">Technologies</span>
+        </h1>
+        <div class="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+        <p class="text-text-muted max-w-2xl mx-auto text-lg">
+          My technical toolkit and interpersonal skills that empower me to build robust applications and collaborate effectively.
+        </p>
+      </div>
+
+      <SkillGrid client:load initialSkills={initialSkills} />
+    </div>
+  </section>
+</MainLayout>

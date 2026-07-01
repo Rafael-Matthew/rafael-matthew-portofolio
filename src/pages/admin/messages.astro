@@ -1,0 +1,85 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { supabaseAdmin } from '../../lib/supabaseServer';
+import { Mail, CheckCircle, Trash2 } from 'lucide-react';
+
+const { data: messages, error } = await supabaseAdmin
+  .from('messages')
+  .select('*')
+  .order('created_at', { ascending: false });
+
+const msgData = messages || [];
+---
+
+<AdminLayout>
+  <div class="max-w-6xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-slate-800">Messages</h1>
+    </div>
+
+    <div class="space-y-4">
+      {msgData.length === 0 ? (
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-12 text-center text-slate-500">
+          No messages yet.
+        </div>
+      ) : (
+        msgData.map((msg) => (
+          <div class={`bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col md:flex-row gap-6 items-start transition-all ${!msg.is_read ? 'border-l-4 border-l-primary' : ''}`}>
+            <div class={`p-3 rounded-full ${!msg.is_read ? 'bg-primary/10 text-primary' : 'bg-slate-50 text-slate-400'}`}>
+              <Mail size={24} />
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <h3 class="font-bold text-lg text-slate-800">{msg.name}</h3>
+                  <a href={`mailto:${msg.email}`} class="text-sm text-primary hover:text-primary-dark transition-colors">{msg.email}</a>
+                </div>
+                <div class="text-xs text-slate-500">
+                  {new Date(msg.created_at).toLocaleString()}
+                </div>
+              </div>
+              <h4 class="font-semibold mb-2 text-slate-800">{msg.subject}</h4>
+              <p class="text-slate-600 whitespace-pre-wrap text-sm mb-4 leading-relaxed">
+                {msg.message}
+              </p>
+              
+              <div class="flex space-x-4 border-t border-slate-100 pt-4 mt-2">
+                {!msg.is_read && (
+                  <button data-id={msg.id} class="mark-read-btn flex items-center space-x-1 text-sm font-medium text-green-600 hover:text-green-700 transition-colors">
+                    <CheckCircle size={16} />
+                    <span>Mark as Read</span>
+                  </button>
+                )}
+                <button data-id={msg.id} class="delete-btn flex items-center space-x-1 text-sm font-medium text-red-500 hover:text-red-600 transition-colors">
+                  <Trash2 size={16} />
+                  <span>Delete</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  </div>
+
+  <script>
+    import { supabase } from '../../lib/supabaseClient';
+
+    document.querySelectorAll('.mark-read-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const id = (e.currentTarget as HTMLButtonElement).dataset.id;
+        const { error } = await supabase.from('messages').update({ is_read: true }).eq('id', id);
+        if (!error) window.location.reload();
+      });
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        if (!confirm('Are you sure you want to delete this message?')) return;
+        const id = (e.currentTarget as HTMLButtonElement).dataset.id;
+        const { error } = await supabase.from('messages').delete().eq('id', id);
+        if (!error) window.location.reload();
+      });
+    });
+  </script>
+</AdminLayout>

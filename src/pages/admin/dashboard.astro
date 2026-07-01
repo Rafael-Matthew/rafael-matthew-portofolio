@@ -1,0 +1,47 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { supabaseAdmin } from '../../lib/supabaseServer';
+
+// In server mode, we can fetch stats server-side
+// Actually for simplicity in Astro, let's just fetch directly
+const { count: projectCount } = await supabaseAdmin.from('projects').select('*', { count: 'exact', head: true });
+const { count: skillCount } = await supabaseAdmin.from('skills').select('*', { count: 'exact', head: true });
+const { count: expCount } = await supabaseAdmin.from('experiences').select('*', { count: 'exact', head: true });
+const { count: articleCount } = await supabaseAdmin.from('articles').select('*', { count: 'exact', head: true });
+const { count: msgCount } = await supabaseAdmin.from('messages').select('*', { count: 'exact', head: true }).eq('is_read', false);
+
+const stats = [
+  { label: 'Total Projects', value: projectCount || 0 },
+  { label: 'Total Skills', value: skillCount || 0 },
+  { label: 'Total Experiences', value: expCount || 0 },
+  { label: 'Total Articles', value: articleCount || 0 },
+  { label: 'Unread Messages', value: msgCount || 0, highlight: true },
+];
+---
+
+<AdminLayout>
+  <div class="max-w-6xl mx-auto space-y-8">
+    <div class="flex justify-between items-center">
+      <h1 class="text-3xl font-bold">Dashboard</h1>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {stats.map((stat) => (
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col justify-center">
+          <p class="text-sm font-medium text-slate-500 mb-2">{stat.label}</p>
+          <p class={`text-4xl font-bold ${stat.highlight && stat.value > 0 ? 'text-primary' : 'text-slate-800'}`}>
+            {stat.value}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-8 mt-8">
+      <h2 class="text-2xl font-bold mb-4 text-slate-800">Welcome to Admin Panel</h2>
+      <p class="text-slate-600 leading-relaxed">
+        Use the sidebar to navigate through different sections and manage your portfolio content.
+        You can perform CRUD (Create, Read, Update, Delete) operations on Projects, Skills, Experiences, and more.
+      </p>
+    </div>
+  </div>
+</AdminLayout>

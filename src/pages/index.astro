@@ -1,0 +1,120 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import HeroSection from '../components/home/HeroSection';
+import AboutSection from '../components/about/AboutSection';
+import ProjectList from '../components/projects/ProjectList';
+import SkillGrid from '../components/skills/SkillGrid';
+import ExperienceTimeline from '../components/experience/ExperienceTimeline';
+import EducationSection from '../components/education/EducationSection';
+import ContactSection from '../components/contact/ContactSection';
+import { supabase } from '../lib/supabaseClient';
+
+// Fetch data for the unified single-page scroll experience
+const { data: projects } = await supabase
+  .from('projects')
+  .select('*')
+  .eq('status', 'published')
+  .order('created_at', { ascending: false });
+
+const { data: skills } = await supabase
+  .from('skills')
+  .select('*')
+  .order('sort_order', { ascending: true });
+
+const { data: experiences } = await supabase
+  .from('experiences')
+  .select('*')
+  .order('sort_order', { ascending: true });
+
+const { data: education } = await supabase
+  .from('education')
+  .select('*')
+  .order('sort_order', { ascending: true });
+
+const initialProjects = projects || [];
+const initialSkills = skills || [];
+const initialExperiences = experiences || [];
+const educationData = education || [];
+---
+
+<MainLayout title="Rafael Matthew Satrio - Portfolio" description="Epic 3D Scroll Journey of Rafael Matthew Satrio's Portfolio">
+  
+  <HeroSection client:load />
+  
+  <AboutSection client:load />
+
+  <section id="projects-section" class="py-32 relative bg-background">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-text-main">
+          My <span class="text-primary">Projects</span>
+        </h2>
+        <div class="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+        <p class="text-text-muted max-w-2xl mx-auto text-lg">
+          3D Showcase of my recent works. Hover to interact.
+        </p>
+      </div>
+
+      <ProjectList client:load initialProjects={initialProjects} />
+    </div>
+  </section>
+
+  <section id="skills-section" class="py-32 relative bg-surface">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-text-main">
+          Skills & <span class="text-primary">Technologies</span>
+        </h2>
+        <div class="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+      </div>
+
+      <SkillGrid client:load initialSkills={initialSkills} />
+    </div>
+  </section>
+
+  <section id="experience-section" class="py-32 relative bg-background">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-text-main">
+          My <span class="text-primary">Experience</span>
+        </h2>
+        <div class="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+        <p class="text-text-muted max-w-2xl mx-auto text-lg">
+          A journey through my professional roles, college projects, and organizational involvement.
+        </p>
+      </div>
+
+      <ExperienceTimeline client:load initialExperiences={initialExperiences} />
+    </div>
+  </section>
+
+  <section id="education-section" class="py-32 relative bg-surface">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-text-main">
+          My Education
+        </h2>
+        <div class="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+      </div>
+
+      <EducationSection client:load educationData={educationData} />
+    </div>
+  </section>
+
+  <section id="contact-section" class="py-32 relative bg-background min-h-screen flex items-center">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-text-main">
+          Get in Touch
+        </h2>
+        <div class="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+        <p class="text-text-muted max-w-2xl mx-auto text-lg">
+          Have a question or want to work together? Leave a message, and I'll get back to you as soon as possible.
+        </p>
+      </div>
+
+      <ContactSection client:load />
+    </div>
+  </section>
+
+</MainLayout>
