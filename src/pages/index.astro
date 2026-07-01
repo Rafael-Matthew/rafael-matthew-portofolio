@@ -27,6 +27,7 @@ const fetchedProjects = dbProjects?.map((p: any) => ({
   problem: p.problem || '',
   solution: p.solution || '',
   role: p.role,
+  period: p.period || '2024',
   keyFeatures: p.features || [],
   demoUrl: p.live_demo_url || '#',
   githubUrl: p.github_url || '#',
@@ -43,7 +44,7 @@ const fetchedProjects = dbProjects?.map((p: any) => ({
     <TechArsenal client:load />
     <DeploymentZone client:load projects={fetchedProjects} />
     <AILab client:load projects={fetchedProjects} />
-    <TimelinePipeline client:load />
+    <TimelinePipeline client:load projects={fetchedProjects} />
     
     <CloudComputeCenter client:load />
 

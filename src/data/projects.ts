@@ -12,6 +12,7 @@ export type Project = {
   demoUrl?: string;
   githubUrl?: string;
   focus: ('Recruiter' | 'Developer' | 'Client' | 'Lecturer')[];
+  period?: string;
 };
 
 export const projects: Project[] = [

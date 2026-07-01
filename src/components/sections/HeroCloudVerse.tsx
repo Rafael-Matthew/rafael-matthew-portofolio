@@ -14,6 +14,10 @@ export default function HeroCloudVerse() {
   const [initIndex, setInitIndex] = useState(0);
   const [isInitialized, setIsInitialized] = useState(false);
 
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
   useEffect(() => {
     if (initIndex < initSequence.length) {
       const timer = setTimeout(() => {
@@ -24,6 +28,32 @@ export default function HeroCloudVerse() {
       setTimeout(() => setIsInitialized(true), 500);
     }
   }, [initIndex]);
+
+  useEffect(() => {
+    if (!isInitialized || !profile.roles.length) return;
+
+    const role = profile.roles[currentRoleIndex];
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (isDeleting) {
+      timer = setTimeout(() => {
+        setCurrentText(prev => prev.slice(0, -1));
+        if (currentText.length <= 1) {
+          setIsDeleting(false);
+          setCurrentRoleIndex((prev) => (prev + 1) % profile.roles.length);
+        }
+      }, 50);
+    } else {
+      if (currentText === role) {
+        timer = setTimeout(() => setIsDeleting(true), 2000);
+      } else {
+        timer = setTimeout(() => {
+          setCurrentText(role.slice(0, currentText.length + 1));
+        }, 100);
+      }
+    }
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, currentRoleIndex, isInitialized]);
 
   const scrollToIdentity = () => {
     document.getElementById('identity-core')?.scrollIntoView({ behavior: 'smooth' });
@@ -74,15 +104,19 @@ export default function HeroCloudVerse() {
               >
                 <div>
                   <h2 className="text-xl md:text-2xl font-medium text-text-muted mb-2">Welcome to the system of</h2>
-                  <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-4">
+                  <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-6">
                     {profile.name}
                   </h1>
-                  <div className="flex flex-wrap gap-3">
-                    {profile.roles.map((role, i) => (
-                      <span key={i} className="px-4 py-1.5 rounded-full text-sm font-medium bg-blue-50 text-primary border border-blue-100">
-                        {role}
-                      </span>
-                    ))}
+                  
+                  {/* Typewriter Effect for Roles */}
+                  <div className="flex items-center gap-2 text-xl md:text-2xl font-mono text-primary h-10 mt-4">
+                    <span>&gt; </span>
+                    <span className="font-bold border-b-2 border-primary/30 pb-0.5">{currentText}</span>
+                    <motion.span 
+                      animate={{ opacity: [1, 0] }}
+                      transition={{ repeat: Infinity, duration: 0.8 }}
+                      className="w-3 h-8 bg-primary inline-block"
+                    />
                   </div>
                 </div>
 

@@ -275,7 +275,7 @@ export default function CloudComputeCenter() {
               </h3>
             </div>
             
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto no-scrollbar">
               <table className="w-full text-left text-sm whitespace-nowrap">
                 <thead className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider border-b border-slate-200">
                   <tr>

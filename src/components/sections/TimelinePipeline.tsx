@@ -1,9 +1,37 @@
 import React from 'react';
-import { timelineEvents } from '@/data/timeline';
 import { GitCommit, GitMerge, Rocket, PlayCircle, Code } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import type { Project } from '@/data/projects';
 
-export default function TimelinePipeline() {
+export default function TimelinePipeline({ projects = [] }: { projects?: Project[] }) {
+  // Dynamically generate timeline events from projects
+  const dynamicEvents = [...projects]
+    .sort((a, b) => parseInt(b.period || '2024') - parseInt(a.period || '2024'))
+    .map(project => {
+      let type: 'deploy' | 'commit' | 'merge' = 'commit';
+      if (project.status === 'Completed') type = 'deploy';
+      else if (project.status === 'Active') type = 'commit';
+      else if (project.status === 'Beta') type = 'merge';
+
+      return {
+        year: project.period || '2024',
+        type,
+        message: `Project: ${project.name}`,
+        details: project.impact || project.problem || project.solution || `Developed ${project.name} as a ${project.type} project.`,
+      };
+    });
+
+  // Combine with a fundamental init event at the end
+  const timelineEvents = [
+    ...dynamicEvents,
+    {
+      year: '2022',
+      type: 'init',
+      message: 'init: started informatics & software engineering journey',
+      details: 'Began formal education at ISTTS and deep-dive into full-stack development, algorithms, and cloud technologies.',
+    }
+  ];
+
   return (
     <section id="timeline-pipeline" className="py-20 px-4 w-full bg-section border-y border-slate-200/50">
       <div className="max-w-4xl mx-auto">
