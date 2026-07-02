@@ -395,28 +395,28 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
               <div className="bg-slate-900/80 backdrop-blur-xl rounded-xl p-3 text-white shadow-lg border border-white/20 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#2563EB]/20 blur-2xl rounded-full translate-x-1/2 -translate-y-1/2" />
                 
-                <div className="grid grid-cols-3 gap-2 relative z-10">
+                <div className="grid grid-cols-3 gap-3 relative z-10">
                   <div>
-                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-0.5">Layer</p>
-                    <p className="text-[10px] font-medium truncate">{activeMetrics.layer}</p>
+                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-1">Layer</p>
+                    <p className="text-[11px] font-bold truncate">{activeMetrics.layer}</p>
                   </div>
                   <div>
-                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-0.5">Latency</p>
-                    <p className="text-[10px] font-medium text-[#06B6D4] truncate">{activeMetrics.latency}</p>
-                  </div>
-                  <div>
-                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-0.5">Rules</p>
-                    <p className="text-[10px] font-medium truncate">{activeMetrics.rules}</p>
+                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-1">Latency</p>
+                    <p className="text-[11px] font-bold text-[#06B6D4] truncate">{activeMetrics.latency}</p>
                   </div>
                   <div className="col-span-1">
-                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-0.5">Sync</p>
-                    <p className="text-[10px] font-medium text-[#22C55E] flex items-center gap-1 truncate">
-                      <Cloud className="w-2.5 h-2.5 shrink-0" /> {activeMetrics.sync}
+                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-1">Sync</p>
+                    <p className="text-[11px] font-bold text-[#22C55E] flex items-center gap-1 truncate">
+                      <Cloud className="w-3 h-3 shrink-0" /> {activeMetrics.sync}
                     </p>
                   </div>
+                  <div>
+                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-1">Rules</p>
+                    <p className="text-[11px] font-bold truncate">{activeMetrics.rules}</p>
+                  </div>
                   <div className="col-span-2">
-                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-0.5">Service Map</p>
-                    <p className="text-[9px] font-mono text-slate-300 bg-white/5 px-1.5 py-0.5 rounded border border-white/10 truncate">
+                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-1">Service Map</p>
+                    <p className="text-[10px] font-mono font-medium text-slate-300 bg-white/5 px-2 py-1 rounded border border-white/10 truncate">
                       {activeMetrics.service}
                     </p>
                   </div>
@@ -425,11 +425,11 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
             </div>
 
             {/* 4. Experiment Result Insight */}
-            <div className="flex flex-col gap-3 flex-1">
-              <h3 className="text-sm font-bold text-[#64748B] flex items-center gap-2 mb-1">
+            <div className="flex flex-col gap-3 h-[370px]">
+              <h3 className="text-sm font-bold text-[#64748B] flex items-center gap-2 mb-1 shrink-0">
                 <Cpu className="w-4 h-4" /> Result Insight
               </h3>
-              <div className="bg-white/40 backdrop-blur-xl rounded-2xl border border-white/40 p-5 shadow-sm flex-1 flex flex-col justify-center">
+              <div className="bg-white/40 backdrop-blur-xl rounded-2xl border border-white/40 p-5 shadow-sm flex-1 flex flex-col justify-start overflow-y-auto custom-scrollbar min-h-0">
                 {!activeInsight ? (
                   <div className="text-center text-slate-400 flex flex-col items-center gap-2">
                     <Activity className="w-8 h-8 opacity-20" />
