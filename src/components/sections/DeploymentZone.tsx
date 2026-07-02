@@ -65,7 +65,18 @@ export default function DeploymentZone({ projects }: { projects: Project[] }) {
         <div className="md:col-span-5 h-[400px] md:h-[600px] flex flex-col">
           {/* Category Filter Buttons */}
           <div className="flex flex-wrap gap-2 mb-4 shrink-0">
-            {['All', ...Array.from(new Set(projects.map(p => p.type || 'Others')))].map(category => (
+            {['All', ...Array.from(new Set(projects.map(p => p.type || 'Others')))]
+              .sort((a, b) => {
+                const order = ['all', 'web app', 'mobile app', 'games', 'ai in games'];
+                const indexA = order.indexOf(a.toLowerCase());
+                const indexB = order.indexOf(b.toLowerCase());
+                
+                if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                if (indexA !== -1) return -1;
+                if (indexB !== -1) return 1;
+                return a.localeCompare(b);
+              })
+              .map(category => (
               <span
                 key={category}
                 onClick={() => setSelectedCategory(category)}
