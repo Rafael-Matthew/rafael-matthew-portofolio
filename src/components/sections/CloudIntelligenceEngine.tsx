@@ -34,7 +34,7 @@ type Experiment = {
   aiType: string;
   relatedProject: string;
   status: 'Active' | 'Prototype' | 'Concept' | 'Ready';
-  icon: React.ElementType;
+  icon: React.ElementType<{ className?: string }>;
 };
 
 const experiments: Experiment[] = [
