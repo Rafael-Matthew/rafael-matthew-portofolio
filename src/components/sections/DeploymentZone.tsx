@@ -70,7 +70,7 @@ export default function DeploymentZone({ projects }: { projects: Project[] }) {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={cn(
-                  "px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all",
+                  "px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer select-none",
                   selectedCategory === category 
                     ? "bg-primary text-white shadow-md shadow-primary/20" 
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"

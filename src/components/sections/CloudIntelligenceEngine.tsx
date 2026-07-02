@@ -235,7 +235,18 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
             </h3>
             
             <div className="flex flex-col gap-1 max-h-[350px] lg:max-h-none lg:h-[500px] overflow-y-auto pr-2 custom-scrollbar font-mono">
-              {Object.entries(groupedExperiments).map(([folderName, exps]) => (
+              {Object.entries(groupedExperiments)
+                .sort(([a], [b]) => {
+                  const order = ['portfolio intelligence', 'web app', 'mobile app', 'games', 'ai in games'];
+                  const indexA = order.indexOf(a.toLowerCase());
+                  const indexB = order.indexOf(b.toLowerCase());
+                  
+                  if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                  if (indexA !== -1) return -1;
+                  if (indexB !== -1) return 1;
+                  return a.localeCompare(b);
+                })
+                .map(([folderName, exps]) => (
                 <div key={folderName} className="flex flex-col mb-1">
                   
                   {/* Folder Header */}
