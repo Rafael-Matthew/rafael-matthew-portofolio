@@ -56,11 +56,11 @@ export default function MissionNav() {
         {navItems.map((item) => {
           const isActive = activeId === item.id;
           return (
-            <button
+            <div
               key={item.id}
               onClick={() => scrollToSection(item.id)}
               className={cn(
-                "flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap",
+                "flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap cursor-pointer select-none",
                 isActive 
                   ? "bg-blue-50 text-primary shadow-sm" 
                   : "text-text-muted hover:text-text-main hover:bg-slate-50"
@@ -70,7 +70,7 @@ export default function MissionNav() {
               <span className={cn("hidden md:block transition-all", isActive ? "font-semibold" : "")}>
                 {item.label}
               </span>
-            </button>
+            </div>
           );
         })}
         <div className="w-1 md:w-2 shrink-0"></div>

@@ -234,14 +234,15 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
               <Box className="w-4 h-4" /> Experiment Gallery
             </h3>
             
-            <div className="flex flex-col gap-1 h-[500px] overflow-y-auto pr-2 custom-scrollbar font-mono">
+            <div className="flex flex-col gap-1 max-h-[350px] lg:max-h-none lg:h-[500px] overflow-y-auto pr-2 custom-scrollbar font-mono">
               {Object.entries(groupedExperiments).map(([folderName, exps]) => (
                 <div key={folderName} className="flex flex-col mb-1">
                   
                   {/* Folder Header */}
-                  <button 
+                  <div 
+                    role="button"
                     onClick={() => toggleFolder(folderName)}
-                    className="flex items-center gap-1.5 px-2 py-1.5 w-full text-left hover:bg-slate-200/50 rounded transition-all group"
+                    className="flex items-center gap-1.5 px-2 py-1.5 w-full text-left hover:bg-slate-200/50 rounded transition-all group cursor-pointer select-none"
                   >
                     {isFolderOpen(folderName) ? (
                       <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
@@ -255,7 +256,7 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
                       <Folder className="w-4 h-4 text-slate-500 fill-slate-500/20" />
                     )}
                     <span className="text-sm text-slate-700">{folderName.toLowerCase()}</span>
-                  </button>
+                  </div>
                   
                   {/* Folder Contents */}
                   <AnimatePresence>
@@ -273,11 +274,12 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
                           const fileName = exp.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
                           
                           return (
-                            <button
+                            <div
+                              role="button"
                               key={exp.id}
                               onClick={() => setSelectedId(exp.id)}
                               className={cn(
-                                "flex items-center gap-2 text-left px-2 py-1.5 rounded transition-all duration-200",
+                                "flex items-center gap-2 text-left px-2 py-1.5 rounded transition-all duration-200 cursor-pointer select-none",
                                 isSelected 
                                   ? "bg-blue-100/50 text-blue-700" 
                                   : "hover:bg-slate-200/50 text-slate-600"
@@ -287,7 +289,7 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
                               <span className={cn("text-xs truncate", isSelected ? "font-semibold" : "font-medium")}>
                                 {fileName}
                               </span>
-                            </button>
+                            </div>
                           )
                         })}
                       </motion.div>
@@ -449,7 +451,8 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
                       <p className="text-xs text-[#64748B]">{activeInsight.role}</p>
                     </div>
                     <div className="pt-2 mt-auto border-t border-slate-100">
-                      <button 
+                      <div 
+                        role="button"
                         onClick={() => {
                           if (selectedId) {
                             const insight = activeInsight;
@@ -483,10 +486,10 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
                             }, 150);
                           }
                         }}
-                        className="w-full text-xs font-bold text-[#2563EB] hover:text-[#2563EB]/80 flex items-center justify-between p-2 hover:bg-[#2563EB]/5 rounded-lg transition-colors"
+                        className="w-full text-xs font-bold text-[#2563EB] hover:text-[#2563EB]/80 flex items-center justify-between p-2 hover:bg-[#2563EB]/5 rounded-lg transition-colors cursor-pointer select-none"
                       >
                         {activeInsight.action} <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
+                      </div>
                     </div>
                   </motion.div>
                 )}

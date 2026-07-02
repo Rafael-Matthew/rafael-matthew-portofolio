@@ -84,12 +84,12 @@ export default function StartHandshake() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-slate-500 uppercase">Identity (Name)</label>
-                    <input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} type="text" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="John Doe" />
+                    <label htmlFor="name-input" className="text-xs font-bold text-slate-500 uppercase">Identity (Name)</label>
+                    <input suppressHydrationWarning id="name-input" name="name" autoComplete="name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} type="text" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="John Doe" />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-slate-500 uppercase">Purpose</label>
-                    <select value={formData.purpose} onChange={e => setFormData({...formData, purpose: e.target.value})} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none">
+                    <label htmlFor="purpose-input" className="text-xs font-bold text-slate-500 uppercase">Purpose</label>
+                    <select suppressHydrationWarning id="purpose-input" name="purpose" autoComplete="off" value={formData.purpose} onChange={e => setFormData({...formData, purpose: e.target.value})} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none">
                       <option>Collaboration</option>
                       <option>Hiring / Recruitment</option>
                       <option>Project Inquiry</option>
@@ -100,21 +100,22 @@ export default function StartHandshake() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-slate-500 uppercase">Email</label>
-                    <input required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} type="email" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="john@example.com" />
+                    <label htmlFor="email-input" className="text-xs font-bold text-slate-500 uppercase">Email</label>
+                    <input suppressHydrationWarning id="email-input" name="email" autoComplete="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} type="email" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="john@example.com" />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-slate-500 uppercase">Contact (WA)</label>
-                    <input required value={formData.contact} onChange={e => setFormData({...formData, contact: e.target.value})} type="tel" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="+62 812 3456 7890" />
+                    <label htmlFor="contact-input" className="text-xs font-bold text-slate-500 uppercase">Contact (WA)</label>
+                    <input suppressHydrationWarning id="contact-input" name="contact" autoComplete="tel" required value={formData.contact} onChange={e => setFormData({...formData, contact: e.target.value})} type="tel" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="+62 812 3456 7890" />
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 uppercase">Message</label>
-                  <textarea required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={4} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-none" placeholder="Enter your message here..."></textarea>
+                  <label htmlFor="message-input" className="text-xs font-bold text-slate-500 uppercase">Message</label>
+                  <textarea suppressHydrationWarning id="message-input" name="message" autoComplete="off" required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={4} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-none" placeholder="Enter your message here..."></textarea>
                 </div>
 
                 <button 
+                  suppressHydrationWarning
                   type="submit" 
                   disabled={isSubmitting}
                   className={cn(

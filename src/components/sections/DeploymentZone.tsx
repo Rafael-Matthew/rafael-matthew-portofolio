@@ -62,11 +62,11 @@ export default function DeploymentZone({ projects }: { projects: Project[] }) {
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         {/* Project List & Filters */}
-        <div className="md:col-span-5 h-[600px] flex flex-col">
+        <div className="md:col-span-5 h-[400px] md:h-[600px] flex flex-col">
           {/* Category Filter Buttons */}
           <div className="flex flex-wrap gap-2 mb-4 shrink-0">
             {['All', ...Array.from(new Set(projects.map(p => p.type || 'Others')))].map(category => (
-              <button
+              <span
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={cn(
@@ -77,7 +77,7 @@ export default function DeploymentZone({ projects }: { projects: Project[] }) {
                 )}
               >
                 {category}
-              </button>
+              </span>
             ))}
           </div>
 

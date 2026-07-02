@@ -55,8 +55,8 @@ export default function HeroCloudVerse() {
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, currentRoleIndex, isInitialized]);
 
-  const scrollToIdentity = () => {
-    document.getElementById('identity-core')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToAILab = () => {
+    document.getElementById('cloud-intelligence')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -121,12 +121,13 @@ export default function HeroCloudVerse() {
                 </div>
 
                 <div className="flex flex-wrap gap-4 pt-4">
-                  <button 
-                    onClick={scrollToIdentity}
-                    className="flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors shadow-lg shadow-primary/20"
+                  <div 
+                    role="button"
+                    onClick={scrollToAILab}
+                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors shadow-lg shadow-primary/20 cursor-pointer select-none"
                   >
                     Enter CloudVerse <ChevronRight className="w-4 h-4" />
-                  </button>
+                  </div>
                 </div>
               </motion.div>
             )}

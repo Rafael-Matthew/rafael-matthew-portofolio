@@ -64,6 +64,7 @@ export default function TechArsenal() {
               return (
                 <button
                   key={cat.id}
+                  suppressHydrationWarning
                   onClick={() => setActiveCategory(cat.id)}
                   className={cn(
                     "w-full text-left p-4 rounded-2xl flex items-center gap-4 transition-all duration-300 border-2",
@@ -120,7 +121,7 @@ export default function TechArsenal() {
             </div>
             
             {/* Info Panel for Hovered Skill */}
-            <div className="mt-6 relative w-full h-[120px]">
+            <div className="mt-6 w-full min-h-[120px]">
               <AnimatePresence mode="wait">
                 {hoveredSkill ? (
                   <motion.div
@@ -128,7 +129,7 @@ export default function TechArsenal() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="p-5 glass border-l-4 border-l-primary rounded-xl w-full absolute inset-0 flex flex-col justify-center"
+                    className="p-5 glass border-l-4 border-l-primary rounded-xl w-full flex flex-col justify-center min-h-[120px]"
                   >
                     <h4 className="font-bold text-text-main mb-1">{hoveredSkill.name}</h4>
                     <p className="text-sm text-text-muted">{hoveredSkill.description}</p>
@@ -139,7 +140,7 @@ export default function TechArsenal() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="p-5 glass opacity-50 border-dashed border-2 rounded-xl w-full absolute inset-0 flex items-center justify-center"
+                    className="p-5 glass opacity-50 border-dashed border-2 rounded-xl w-full flex items-center justify-center min-h-[120px]"
                   >
                     <p className="text-sm text-text-muted text-center">Hover over a node to view details.</p>
                   </motion.div>

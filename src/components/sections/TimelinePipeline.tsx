@@ -84,18 +84,18 @@ export default function TimelinePipeline({ projects = [] }: { projects?: Project
           {/* Year Filter Buttons */}
           <div className="flex flex-wrap gap-2">
             {sortedYears.map(year => (
-              <button
+              <span
                 key={year}
                 onClick={() => setSelectedYear(year)}
                 className={cn(
-                  "px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300",
+                  "px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer select-none",
                   selectedYear === year 
                     ? "bg-primary text-white shadow-md shadow-primary/20" 
                     : "bg-white text-text-muted border border-slate-200 hover:bg-slate-50 hover:text-text-main"
                 )}
               >
                 {year}
-              </button>
+              </span>
             ))}
           </div>
         </motion.div>

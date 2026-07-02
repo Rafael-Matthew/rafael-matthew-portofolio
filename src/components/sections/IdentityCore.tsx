@@ -62,18 +62,19 @@ export default function IdentityCore() {
         <div className="glass-card p-6 md:col-span-8 flex flex-col">
           <div className="flex overflow-x-auto no-scrollbar gap-2 mb-6 border-b border-slate-100 pb-4">
             {tabs.map(tab => (
-              <button
+              <div
+                role="button"
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+                  "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap cursor-pointer select-none",
                   activeTab === tab.id 
                     ? "bg-primary text-white shadow-md" 
                     : "text-text-muted hover:bg-slate-50 hover:text-text-main"
                 )}
               >
                 {tab.icon} {tab.label}
-              </button>
+              </div>
             ))}
           </div>
 
@@ -85,7 +86,7 @@ export default function IdentityCore() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="absolute inset-0 text-text-muted leading-relaxed"
+                className="w-full text-text-muted leading-relaxed"
               >
                 {activeTab === 'professional' && (
                   <div className="space-y-4">
