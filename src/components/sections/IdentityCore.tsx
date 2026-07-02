@@ -32,13 +32,20 @@ export default function IdentityCore() {
         {/* Left Card: Main System Info */}
         <div className="glass-card p-6 md:col-span-4 flex flex-col justify-between">
           <div>
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent mb-6 shadow-lg shadow-primary/20 flex items-center justify-center text-white text-3xl font-bold">
-              {profile.name.charAt(0)}
+            <div className="flex flex-col items-center text-center mb-6">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent mb-4 shadow-lg shadow-primary/20 flex items-center justify-center overflow-hidden border-2 border-primary/20">
+                <img 
+                  src={profile.avatarUrl} 
+                  alt={profile.name} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-text-main">{profile.name}</h3>
             </div>
-            <h3 className="text-xl font-bold text-text-main mb-1">{profile.name}</h3>
-            <p className="text-primary font-medium text-sm mb-4">{profile.roles.join(' + ')}</p>
             
-            <div className="space-y-3 text-sm text-text-muted">
+            <p className="text-primary font-medium text-sm mb-4 text-left">{profile.roles.join(' + ')}</p>
+            
+            <div className="space-y-3 text-sm text-text-muted text-left">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-secondary" /> {profile.location}
               </div>
@@ -48,7 +55,7 @@ export default function IdentityCore() {
             </div>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-slate-100">
+          <div className="mt-8 pt-6 border-t border-slate-100 text-left">
             <p className="text-xs text-text-muted font-mono bg-slate-50 p-3 rounded-lg border border-slate-100">
               <span className="text-primary font-bold">Focus:</span> {profile.focus}
               <br/>
@@ -60,20 +67,20 @@ export default function IdentityCore() {
 
         {/* Right Card: Tabs & Content */}
         <div className="glass-card p-6 md:col-span-8 flex flex-col">
-          <div className="flex overflow-x-auto no-scrollbar gap-2 mb-6 border-b border-slate-100 pb-4">
+          <div className="flex overflow-x-auto no-scrollbar justify-between md:justify-start gap-2 mb-6 border-b border-slate-100 pb-4">
             {tabs.map(tab => (
               <div
                 role="button"
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap cursor-pointer select-none",
+                  "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap cursor-pointer select-none flex-1 md:flex-none justify-center md:justify-start",
                   activeTab === tab.id 
                     ? "bg-primary text-white shadow-md" 
                     : "text-text-muted hover:bg-slate-50 hover:text-text-main"
                 )}
               >
-                {tab.icon} {tab.label}
+                {tab.icon} <span className="hidden md:block">{tab.label}</span>
               </div>
             ))}
           </div>
@@ -90,6 +97,7 @@ export default function IdentityCore() {
               >
                 {activeTab === 'professional' && (
                   <div className="space-y-4">
+                    <h4 className="md:hidden font-bold text-text-main text-lg mb-2">Professional Summary</h4>
                     <p>{profile.professionalSummary}</p>
                     <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl text-primary mt-4 text-sm font-medium">
                       ✨ Quick Highlight: Proven track record in delivering scalable full-stack applications with measurable impact on operational efficiency.
@@ -98,6 +106,7 @@ export default function IdentityCore() {
                 )}
                 {activeTab === 'technical' && (
                   <div className="space-y-4">
+                    <h4 className="md:hidden font-bold text-text-main text-lg mb-2">Technical Side</h4>
                     <p>{profile.technicalSide}</p>
                     <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl text-primary mt-4 text-sm font-mono">
                       // Dev Note: Heavily utilizing TypeScript for end-to-end type safety, deploying via Vercel Edge Functions, and managing state with Zustand/Nanostores.
@@ -106,6 +115,7 @@ export default function IdentityCore() {
                 )}
                 {activeTab === 'personal' && (
                   <div className="space-y-4">
+                    <h4 className="md:hidden font-bold text-text-main text-lg mb-2">Personal Side</h4>
                     <p>{profile.personalSide}</p>
                     <div className="bg-purple-50 border border-purple-100 p-4 rounded-xl text-accent mt-4 text-sm">
                       🎮 Fun Fact: I spend my free time exploring new UI animations and optimizing terminal configurations!

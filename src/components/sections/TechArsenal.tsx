@@ -142,7 +142,11 @@ export default function TechArsenal() {
                     exit={{ opacity: 0, y: -10 }}
                     className="p-5 glass opacity-50 border-dashed border-2 rounded-xl w-full flex items-center justify-center min-h-[120px]"
                   >
-                    <p className="text-sm text-text-muted text-center">Hover over a node to view details.</p>
+                    <p className="text-sm text-text-muted text-center">
+                      <span className="hidden md:inline">Hover</span>
+                      <span className="md:hidden">Click</span>
+                      {" over a node to view details."}
+                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>

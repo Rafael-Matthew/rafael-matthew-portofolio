@@ -1,5 +1,6 @@
 export const profile = {
   name: "Rafael Matthew Satrio",
+  avatarUrl: "https://res.cloudinary.com/dtdiwotv1/image/upload/v1783007726/Matthew_pbhxpl.jpg",
   roles: [
     "Full-Stack Developer",
     "Frontend Developer"
