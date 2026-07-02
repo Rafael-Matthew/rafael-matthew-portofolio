@@ -6,7 +6,7 @@ const navItems = [
   { id: 'identity-core', label: 'Identity Core', icon: <Terminal className="w-4 h-4" /> },
   { id: 'tech-arsenal', label: 'Tech Arsenal', icon: <Cpu className="w-4 h-4" /> },
   { id: 'deployment-zone', label: 'Deployment Zone', icon: <Layers className="w-4 h-4" /> },
-  { id: 'ai-lab', label: 'AI Lab', icon: <Zap className="w-4 h-4" /> },
+  { id: 'cloud-intelligence', label: 'AI Lab', icon: <Zap className="w-4 h-4" /> },
   { id: 'timeline-pipeline', label: 'Timeline Pipeline', icon: <Code className="w-4 h-4" /> },
   { id: 'start-handshake', label: 'Start Handshake', icon: <PhoneCall className="w-4 h-4" /> },
 ];
@@ -48,10 +48,11 @@ export default function MissionNav() {
 
   return (
     <nav className={cn(
-      "fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-11/12 max-w-4xl",
+      "fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-11/12 max-w-5xl",
       isScrolled ? "py-2" : "py-4"
     )}>
-      <div className="glass px-4 py-2 md:py-3 md:px-6 rounded-full flex items-center justify-between overflow-x-auto no-scrollbar gap-4 md:gap-2">
+      <div className="glass px-2 md:px-4 py-2 md:py-3 rounded-full flex items-center justify-between overflow-x-auto no-scrollbar gap-4 md:gap-2">
+        <div className="w-1 md:w-2 shrink-0"></div>
         {navItems.map((item) => {
           const isActive = activeId === item.id;
           return (
@@ -72,6 +73,7 @@ export default function MissionNav() {
             </button>
           );
         })}
+        <div className="w-1 md:w-2 shrink-0"></div>
       </div>
     </nav>
   );

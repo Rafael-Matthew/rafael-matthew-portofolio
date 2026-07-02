@@ -178,8 +178,8 @@ export default function CloudIntelligenceEngine() {
   const isCompleted = simStep >= activePipeline.length;
 
   return (
-    <section id="cloud-intelligence" className="py-24 px-4 w-full bg-[#F8FAFC] border-y border-slate-200/50 text-[#0F172A] overflow-hidden">
-      <div className="max-w-7xl mx-auto flex flex-col gap-12">
+    <section id="cloud-intelligence" className="py-24 px-4 w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col gap-12 glass-card p-8 md:p-12">
         
         {/* Header */}
         <div className="flex flex-col items-center text-center gap-4">
