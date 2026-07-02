@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { skills, type SkillCategory, type Skill } from '@/data/skills';
-import { Code2, LayoutTemplate, Server, Database, Cloud, Users } from 'lucide-react';
+import { Code2, LayoutTemplate, Server, Database, Cloud, Users, Brain } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function TechArsenal() {
@@ -14,6 +14,7 @@ export default function TechArsenal() {
     { id: 'Backend', icon: <Server className="w-5 h-5" />, color: 'text-accent bg-accent/10 border-accent/20' },
     { id: 'Databases', icon: <Database className="w-5 h-5" />, color: 'text-success bg-success/10 border-success/20' },
     { id: 'Cloud & DevOps', icon: <Cloud className="w-5 h-5" />, color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
+    { id: 'AI', icon: <Brain className="w-5 h-5" />, color: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/20' },
     { id: 'Soft Skills', icon: <Users className="w-5 h-5" />, color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
   ];
 
@@ -26,6 +27,7 @@ export default function TechArsenal() {
       case 'Backend': return "hover:border-accent/50 hover:shadow-accent/10";
       case 'Databases': return "hover:border-success/50 hover:shadow-success/10";
       case 'Cloud & DevOps': return "hover:border-blue-500/50 hover:shadow-blue-500/10";
+      case 'AI': return "hover:border-indigo-500/50 hover:shadow-indigo-500/10";
       case 'Soft Skills': return "hover:border-purple-500/50 hover:shadow-purple-500/10";
       default: return "hover:border-slate-500/50 hover:shadow-slate-500/10";
     }
@@ -38,6 +40,7 @@ export default function TechArsenal() {
       case 'Backend': return "shadow-accent/10";
       case 'Databases': return "shadow-success/10";
       case 'Cloud & DevOps': return "shadow-blue-500/10";
+      case 'AI': return "shadow-indigo-500/10";
       case 'Soft Skills': return "shadow-purple-500/10";
       default: return "shadow-slate-500/10";
     }

@@ -1,4 +1,4 @@
-export type SkillCategory = 'Languages' | 'Frontend' | 'Backend' | 'Databases' | 'Cloud & DevOps' | 'Soft Skills';
+export type SkillCategory = 'Languages' | 'Frontend' | 'Backend' | 'Databases' | 'Cloud & DevOps' | 'Soft Skills' | 'AI';
 
 export type Skill = {
   name: string;
@@ -51,4 +51,13 @@ export const skills: Skill[] = [
   { name: 'Adaptability', category: 'Soft Skills', description: 'Adjusting to new conditions and technologies.' },
   { name: 'Public Speaking', category: 'Soft Skills', description: 'Communicating ideas clearly to an audience.' },
   { name: 'Teamwork', category: 'Soft Skills', description: 'Collaborating effectively with others.' },
+
+  // AI
+  { name: 'Prompt Engineering', category: 'AI', description: 'Designing and optimizing prompts for LLMs.' },
+  { name: 'LLMs', category: 'AI', description: 'Working with Large Language Models like GPT-4 and Gemini.' },
+  { name: 'AI Integration', category: 'AI', description: 'Integrating AI capabilities into web and mobile applications.' },
+  { name: 'scikit-learn', category: 'AI', description: 'Machine learning library for Python.' },
+  { name: 'OpenCV', category: 'AI', description: 'Computer vision and image processing.' },
+  { name: 'YOLO', category: 'AI', description: 'Real-time object detection.' },
+  { name: 'MediaPipe', category: 'AI', description: 'Cross-platform ML solutions for live media.' },
 ];
