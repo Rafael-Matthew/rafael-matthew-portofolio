@@ -1,15 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #2563EB; /* Cloud Blue */
-  --color-primary-dark: #1D4ED8; /* Slightly darker Cloud Blue for hover */
-  --color-secondary: #06B6D4; /* Cyan AI */
-  --color-accent: #8B5CF6; /* Soft Purple */
-  --color-background: #F8FAFC; /* Soft Cloud White */
-  --color-surface: #FFFFFF; /* Pure White for cards */
-  --color-text-main: #0F172A; /* Deep Navy */
-  --color-text-muted: #64748B; /* Slate Gray */
-  --color-success: #22C55E; /* Fresh Green */
+  --color-primary: #2563EB;
+  /* Cloud Blue */
+  --color-primary-dark: #1D4ED8;
+  /* Slightly darker Cloud Blue for hover */
+  --color-secondary: #06B6D4;
+  /* Cyan AI */
+  --color-accent: #8B5CF6;
+  /* Soft Purple */
+  --color-background: #F8FAFC;
+  /* Soft Cloud White */
+  --color-surface: #FFFFFF;
+  /* Pure White for cards */
+  --color-text-main: #0F172A;
+  /* Deep Navy */
+  --color-text-muted: #64748B;
+  /* Slate Gray */
+  --color-success: #22C55E;
+  /* Fresh Green */
   --font-sans: 'Ubuntu', sans-serif;
 }
 
@@ -34,20 +43,26 @@ html {
 }
 
 body {
-  @apply antialiased min-h-screen bg-background text-text-main overflow-x-hidden;
+  @apply antialiased min-h-screen text-text-main overflow-x-hidden;
+  background-color: var(--color-background);
+  background-image: url('https://res.cloudinary.com/dtdiwotv1/image/upload/v1783004636/BG_Porto_jqlqkq.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 /* Custom Soft Utilities */
 .glass {
-  @apply bg-white/60 border border-white/40 shadow-sm backdrop-blur-xl;
+  @apply bg-white/40 border border-white/30 shadow-sm backdrop-blur-2xl;
 }
 
 .glass-card {
-  @apply bg-white/70 border border-white/40 shadow-sm rounded-3xl backdrop-blur-xl transition-all duration-300;
+  @apply bg-white/50 border border-white/40 shadow-sm rounded-3xl backdrop-blur-2xl transition-all duration-300;
 }
 
 .glass-card:hover {
-  @apply shadow-lg shadow-primary/10 -translate-y-1 border-primary/30;
+  @apply shadow-lg shadow-primary/20 -translate-y-1 border-white/60 bg-white/60;
 }
 
 /* Soft Highlight Text */
@@ -59,27 +74,34 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-background);
 }
+
 ::-webkit-scrollbar-thumb {
   background: #CBD5E1;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
 }
+
 /* Custom Scrollbar for deployment zone */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(37, 99, 235, 0.2);
   border-radius: 10px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(37, 99, 235, 0.5);
 }
@@ -91,6 +113,8 @@ body {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
