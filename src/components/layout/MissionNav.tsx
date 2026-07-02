@@ -3,10 +3,10 @@ import { cn } from '@/lib/utils';
 import { Cpu, Terminal, Layers, Code, Zap, PhoneCall } from 'lucide-react';
 
 const navItems = [
+  { id: 'cloud-intelligence', label: 'AI Lab', icon: <Zap className="w-4 h-4" /> },
   { id: 'identity-core', label: 'Identity Core', icon: <Terminal className="w-4 h-4" /> },
   { id: 'tech-arsenal', label: 'Tech Arsenal', icon: <Cpu className="w-4 h-4" /> },
   { id: 'deployment-zone', label: 'Deployment Zone', icon: <Layers className="w-4 h-4" /> },
-  { id: 'cloud-intelligence', label: 'AI Lab', icon: <Zap className="w-4 h-4" /> },
   { id: 'timeline-pipeline', label: 'Timeline Pipeline', icon: <Code className="w-4 h-4" /> },
   { id: 'start-handshake', label: 'Start Handshake', icon: <PhoneCall className="w-4 h-4" /> },
 ];

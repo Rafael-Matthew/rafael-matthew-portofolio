@@ -40,10 +40,10 @@ const fetchedProjects = dbProjects?.map((p: any) => ({
   
   <main class="relative w-full flex flex-col">
     <HeroCloudVerse client:load />
+    <CloudIntelligenceEngine client:load projects={fetchedProjects} />
     <IdentityCore client:load />
     <TechArsenal client:load />
     <DeploymentZone client:load projects={fetchedProjects} />
-    <CloudIntelligenceEngine client:load projects={fetchedProjects} />
     <TimelinePipeline client:load projects={fetchedProjects} />
     
 
