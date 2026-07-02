@@ -37,7 +37,7 @@ export default function IdentityCore() {
                 <img 
                   src={profile.avatarUrl} 
                   alt={profile.name} 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-[50%_15%]"
                 />
               </div>
               <h3 className="text-xl font-bold text-text-main">{profile.name}</h3>
