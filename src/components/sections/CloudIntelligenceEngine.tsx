@@ -381,41 +381,42 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
           <div className="lg:col-span-1 flex flex-col gap-6">
             
             {/* 3. Cloud Runtime Metrics */}
-            <div className="flex flex-col gap-3">
-              <h3 className="text-sm font-bold text-[#64748B] flex items-center gap-2 mb-1">
-                <Server className="w-4 h-4" /> Cloud Runtime
-              </h3>
-              <div className="bg-slate-900/80 backdrop-blur-xl rounded-2xl p-5 text-white shadow-lg border border-white/20 relative overflow-hidden">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between mb-0.5">
+                <h3 className="text-sm font-bold text-[#64748B] flex items-center gap-2">
+                  <Server className="w-4 h-4" /> Cloud Runtime
+                </h3>
+                <div className="flex items-center gap-1.5">
+                  <div className={cn("w-1.5 h-1.5 rounded-full", activeMetrics.status.includes('Active') ? "bg-[#22C55E] animate-pulse" : "bg-[#06B6D4] animate-pulse")} />
+                  <span className="text-[9px] font-bold text-[#64748B] uppercase">{activeMetrics.status}</span>
+                </div>
+              </div>
+              
+              <div className="bg-slate-900/80 backdrop-blur-xl rounded-xl p-3 text-white shadow-lg border border-white/20 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#2563EB]/20 blur-2xl rounded-full translate-x-1/2 -translate-y-1/2" />
                 
-                <div className="flex items-center gap-3 mb-5 border-b border-white/10 pb-4">
-                  <div className={cn("w-2 h-2 rounded-full", activeMetrics.status.includes('Active') ? "bg-[#22C55E] animate-pulse" : "bg-[#06B6D4] animate-pulse")} />
-                  <span className="text-xs font-mono text-slate-300 uppercase tracking-widest">System Status</span>
-                  <span className="ml-auto text-xs font-bold">{activeMetrics.status}</span>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4 gap-y-5">
+                <div className="grid grid-cols-3 gap-2 relative z-10">
                   <div>
-                    <p className="text-[10px] text-slate-400 uppercase font-bold mb-1">Layer</p>
-                    <p className="text-sm font-medium">{activeMetrics.layer}</p>
+                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-0.5">Layer</p>
+                    <p className="text-[10px] font-medium truncate">{activeMetrics.layer}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] text-slate-400 uppercase font-bold mb-1">Latency</p>
-                    <p className="text-sm font-medium text-[#06B6D4]">{activeMetrics.latency}</p>
+                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-0.5">Latency</p>
+                    <p className="text-[10px] font-medium text-[#06B6D4] truncate">{activeMetrics.latency}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] text-slate-400 uppercase font-bold mb-1">Rules</p>
-                    <p className="text-sm font-medium">{activeMetrics.rules}</p>
+                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-0.5">Rules</p>
+                    <p className="text-[10px] font-medium truncate">{activeMetrics.rules}</p>
                   </div>
-                  <div>
-                    <p className="text-[10px] text-slate-400 uppercase font-bold mb-1">Sync</p>
-                    <p className="text-sm font-medium text-[#22C55E] flex items-center gap-1">
-                      <Cloud className="w-3 h-3" /> {activeMetrics.sync}
+                  <div className="col-span-1">
+                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-0.5">Sync</p>
+                    <p className="text-[10px] font-medium text-[#22C55E] flex items-center gap-1 truncate">
+                      <Cloud className="w-2.5 h-2.5 shrink-0" /> {activeMetrics.sync}
                     </p>
                   </div>
                   <div className="col-span-2">
-                    <p className="text-[10px] text-slate-400 uppercase font-bold mb-1">Service Map</p>
-                    <p className="text-xs font-mono text-slate-300 bg-white/5 p-2 rounded border border-white/10">
+                    <p className="text-[8px] text-slate-400 uppercase font-bold mb-0.5">Service Map</p>
+                    <p className="text-[9px] font-mono text-slate-300 bg-white/5 px-1.5 py-0.5 rounded border border-white/10 truncate">
                       {activeMetrics.service}
                     </p>
                   </div>
