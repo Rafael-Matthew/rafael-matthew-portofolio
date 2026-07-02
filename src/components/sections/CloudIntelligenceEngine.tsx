@@ -15,9 +15,15 @@ import {
   FileText,
   MousePointer2,
   Settings,
-  ArrowRight
+  ArrowRight,
+  Folder,
+  FolderOpen,
+  ChevronRight,
+  ChevronDown,
+  FileCode2
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import type { Project } from '@/data/projects';
 
 // --- DATA DEFINITIONS ---
 
@@ -149,13 +155,51 @@ const statusColors = {
 
 // --- COMPONENT ---
 
-export default function CloudIntelligenceEngine() {
+export default function CloudIntelligenceEngine({ projects = [] }: { projects?: Project[] }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [simStep, setSimStep] = useState<number>(-1);
 
-  const activePipeline = pipelineTemplates[selectedId || 'default'];
-  const activeMetrics = runtimeMetricsData[selectedId || 'default'];
-  const activeInsight = selectedId ? insightsData[selectedId] : null;
+  const dbExperiments: Experiment[] = projects.map(p => ({
+    id: p.id,
+    name: p.name,
+    description: p.problem || `Analyzing workflow for ${p.name}`,
+    aiType: p.type || 'Data Pipeline',
+    relatedProject: p.name,
+    status: p.status === 'Completed' ? 'Ready' : p.status === 'Beta' ? 'Prototype' : 'Active',
+    icon: Database
+  }));
+
+  const allExperiments = [...dbExperiments, ...experiments];
+
+  const groupedExperiments = React.useMemo(() => {
+    return allExperiments.reduce((acc, exp) => {
+      const type = exp.aiType || 'Uncategorized';
+      if (!acc[type]) acc[type] = [];
+      acc[type].push(exp);
+      return acc;
+    }, {} as Record<string, Experiment[]>);
+  }, [allExperiments]);
+
+  const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
+  const isFolderOpen = (folder: string) => openFolders[folder] !== false;
+
+  const toggleFolder = (folder: string) => {
+    setOpenFolders(prev => ({ ...prev, [folder]: !prev[folder] }));
+  };
+
+  const activePipeline = pipelineTemplates[selectedId || 'default'] || pipelineTemplates['default'];
+  const activeMetrics = runtimeMetricsData[selectedId || 'default'] || runtimeMetricsData['default'];
+  
+  const activeInsight = selectedId 
+    ? (insightsData[selectedId] || {
+        detected: `Pipeline analysis for ${allExperiments.find(e => e.id === selectedId)?.name}`,
+        focus: allExperiments.find(e => e.id === selectedId)?.description || 'Data processing',
+        skills: 'Cloud Integration, Workflow Automation',
+        project: allExperiments.find(e => e.id === selectedId)?.relatedProject || 'Unknown',
+        role: 'Dynamic cloud workflow execution',
+        action: 'View Project Details'
+      })
+    : null;
 
   useEffect(() => {
     if (selectedId) {
@@ -200,40 +244,74 @@ export default function CloudIntelligenceEngine() {
             <h3 className="text-sm font-bold text-[#64748B] flex items-center gap-2 mb-1">
               <Box className="w-4 h-4" /> Experiment Gallery
             </h3>
-            <div className="flex flex-col gap-3 h-[500px] overflow-y-auto pr-2 custom-scrollbar">
-              {experiments.map(exp => {
-                const isSelected = selectedId === exp.id;
-                const Icon = exp.icon;
-                return (
-                  <button
-                    key={exp.id}
-                    onClick={() => setSelectedId(exp.id)}
-                    className={cn(
-                      "text-left p-4 rounded-xl border transition-all duration-300 relative overflow-hidden group",
-                      isSelected 
-                        ? "bg-white border-[#2563EB] shadow-md shadow-[#2563EB]/10 ring-1 ring-[#2563EB]/50" 
-                        : "bg-white border-slate-200 hover:border-[#2563EB]/50 hover:shadow-sm"
-                    )}
+            <div className="flex flex-col gap-2 h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+              {Object.entries(groupedExperiments).map(([folderName, exps]) => (
+                <div key={folderName} className="flex flex-col gap-2 mb-1">
+                  
+                  {/* Folder Header */}
+                  <button 
+                    onClick={() => toggleFolder(folderName)}
+                    className="flex items-center gap-2 px-2 py-2 w-full text-left hover:bg-white/40 rounded-xl transition-all group"
                   >
-                    {isSelected && (
-                      <div className="absolute top-0 right-0 w-16 h-16 bg-[#2563EB]/10 blur-xl rounded-full translate-x-1/2 -translate-y-1/2" />
+                    {isFolderOpen(folderName) ? (
+                      <FolderOpen className="w-4 h-4 text-[#2563EB] fill-[#2563EB]/20" />
+                    ) : (
+                      <Folder className="w-4 h-4 text-slate-500 fill-slate-500/20 group-hover:text-[#2563EB]" />
                     )}
-                    <div className="flex justify-between items-start mb-2">
-                      <div className={cn(
-                        "p-2 rounded-lg",
-                        isSelected ? "bg-[#2563EB]/10 text-[#2563EB]" : "bg-slate-100 text-slate-500"
-                      )}>
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <span className={cn("text-[10px] font-bold px-2 py-0.5 rounded-full border", statusColors[exp.status])}>
-                        {exp.status}
-                      </span>
-                    </div>
-                    <h4 className={cn("font-bold text-sm mb-1", isSelected ? "text-[#2563EB]" : "text-[#0F172A]")}>{exp.name}</h4>
-                    <p className="text-xs text-[#64748B] line-clamp-2">{exp.description}</p>
+                    <span className="font-bold text-sm text-[#0F172A]">{folderName}</span>
+                    <span className="ml-auto text-[10px] bg-white/50 border border-white/40 px-1.5 py-0.5 rounded-md text-slate-500 font-bold">
+                      {exps.length}
+                    </span>
                   </button>
-                )
-              })}
+                  
+                  {/* Folder Contents */}
+                  <AnimatePresence>
+                    {isFolderOpen(folderName) && (
+                      <motion.div 
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="flex flex-col gap-2 pl-3 border-l-2 border-[#2563EB]/10 ml-4 overflow-hidden"
+                      >
+                        {exps.map(exp => {
+                          const isSelected = selectedId === exp.id;
+                          const Icon = exp.icon || FileText;
+                          
+                          return (
+                            <button
+                              key={exp.id}
+                              onClick={() => setSelectedId(exp.id)}
+                              className={cn(
+                                "text-left p-3 rounded-xl border transition-all duration-300 relative overflow-hidden group",
+                                isSelected 
+                                  ? "bg-white/80 border-[#2563EB] shadow-md shadow-[#2563EB]/10 ring-1 ring-[#2563EB]/50 backdrop-blur-md text-slate-800" 
+                                  : "bg-white/40 border-white/40 hover:bg-white/60 hover:border-white/60 hover:shadow-sm backdrop-blur-sm text-slate-700"
+                              )}
+                            >
+                              {isSelected && (
+                                <div className="absolute top-0 right-0 w-16 h-16 bg-[#2563EB]/10 blur-xl rounded-full translate-x-1/2 -translate-y-1/2" />
+                              )}
+                              <div className="flex justify-between items-start mb-2">
+                                <div className={cn(
+                                  "p-1.5 rounded-lg",
+                                  isSelected ? "bg-[#2563EB]/10 text-[#2563EB]" : "bg-white/50 border border-white/50 text-slate-600"
+                                )}>
+                                  <Icon className="w-3.5 h-3.5" />
+                                </div>
+                                <span className={cn("text-[9px] font-bold px-2 py-0.5 rounded-full border", statusColors[exp.status])}>
+                                  {exp.status}
+                                </span>
+                              </div>
+                              <h4 className={cn("font-bold text-xs mb-1", isSelected ? "text-[#2563EB]" : "text-[#0F172A]")}>{exp.name}</h4>
+                              <p className="text-[10px] text-[#64748B] line-clamp-2 leading-relaxed">{exp.description}</p>
+                            </button>
+                          )
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -242,7 +320,7 @@ export default function CloudIntelligenceEngine() {
             <h3 className="text-sm font-bold text-[#64748B] flex items-center gap-2 mb-1">
               <Activity className="w-4 h-4" /> Visual Inference Pipeline
             </h3>
-            <div className="flex-1 bg-white rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden p-6 md:p-8 flex items-center justify-center min-h-[400px]">
+            <div className="flex-1 bg-white/40 backdrop-blur-xl border border-white/40 rounded-2xl shadow-sm relative overflow-hidden p-6 md:p-8 flex items-center justify-center min-h-[400px]">
               
               {/* Background Grid Pattern */}
               <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -271,10 +349,10 @@ export default function CloudIntelligenceEngine() {
                       
                       {/* Node Circle */}
                       <div className={cn(
-                        "w-12 h-12 rounded-xl flex items-center justify-center border-2 transition-all duration-300 z-10 shrink-0 bg-white",
-                        isDone ? "border-[#2563EB] text-[#2563EB] shadow-sm shadow-[#2563EB]/20" : 
-                        isActive ? "border-[#06B6D4] text-[#06B6D4] scale-110 shadow-md shadow-[#06B6D4]/30" : 
-                        "border-slate-200 text-slate-300"
+                        "w-12 h-12 rounded-xl flex items-center justify-center border-2 transition-all duration-300 z-10 shrink-0",
+                        isDone ? "bg-white/90 border-[#2563EB] text-[#2563EB] shadow-sm shadow-[#2563EB]/20" : 
+                        isActive ? "bg-white/90 border-[#06B6D4] text-[#06B6D4] scale-110 shadow-md shadow-[#06B6D4]/30" : 
+                        "bg-white/60 border-white/60 text-slate-400"
                       )}>
                         {isDone ? <CheckCircle2 className="w-5 h-5" /> : 
                          isActive ? <Zap className="w-5 h-5 animate-pulse" /> : 
@@ -284,9 +362,9 @@ export default function CloudIntelligenceEngine() {
                       {/* Node Label Card */}
                       <div className={cn(
                         "flex-1 p-3 rounded-lg border transition-all duration-300",
-                        isDone ? "bg-[#F8FAFC] border-slate-200 text-[#0F172A]" :
-                        isActive ? "bg-white border-[#06B6D4] text-[#0F172A] shadow-sm" :
-                        "bg-white border-slate-100 text-slate-400 opacity-60"
+                        isDone ? "bg-white/80 border-white/60 text-[#0F172A] shadow-sm" :
+                        isActive ? "bg-white/90 border-[#06B6D4] text-[#0F172A] shadow-md" :
+                        "bg-white/40 border-white/30 text-slate-500 opacity-80"
                       )}>
                         <div className="flex justify-between items-center">
                           <span className="font-semibold text-sm">{nodeName}</span>
@@ -311,7 +389,7 @@ export default function CloudIntelligenceEngine() {
               <h3 className="text-sm font-bold text-[#64748B] flex items-center gap-2 mb-1">
                 <Server className="w-4 h-4" /> Cloud Runtime
               </h3>
-              <div className="bg-[#0F172A] rounded-2xl p-5 text-white shadow-lg shadow-slate-200/50 relative overflow-hidden">
+              <div className="bg-slate-900/80 backdrop-blur-xl rounded-2xl p-5 text-white shadow-lg border border-white/20 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#2563EB]/20 blur-2xl rounded-full translate-x-1/2 -translate-y-1/2" />
                 
                 <div className="flex items-center gap-3 mb-5 border-b border-white/10 pb-4">
@@ -354,7 +432,7 @@ export default function CloudIntelligenceEngine() {
               <h3 className="text-sm font-bold text-[#64748B] flex items-center gap-2 mb-1">
                 <Cpu className="w-4 h-4" /> Result Insight
               </h3>
-              <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex-1 flex flex-col justify-center">
+              <div className="bg-white/40 backdrop-blur-xl rounded-2xl border border-white/40 p-5 shadow-sm flex-1 flex flex-col justify-center">
                 {!activeInsight ? (
                   <div className="text-center text-slate-400 flex flex-col items-center gap-2">
                     <Activity className="w-8 h-8 opacity-20" />
@@ -401,14 +479,14 @@ export default function CloudIntelligenceEngine() {
         </div>
 
         {/* Intelligence Automation Flow */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div className="bg-white/40 backdrop-blur-xl rounded-2xl border border-white/40 p-6 shadow-sm">
           <h3 className="text-sm font-bold text-[#0F172A] flex items-center gap-2 mb-4">
             <Settings className="w-4 h-4 text-[#8B5CF6]" /> Intelligence Automation Flow
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             
             {/* Rule 1 */}
-            <div className="p-3 rounded-xl border border-slate-100 bg-[#F8FAFC]">
+            <div className="p-3 rounded-xl border border-white/40 bg-white/50">
               <div className="flex justify-between items-start mb-2">
                 <span className="text-[10px] font-bold text-slate-500 uppercase">Trigger</span>
                 <span className={cn("text-[9px] font-bold px-1.5 py-0.5 rounded-sm", selectedId ? "bg-[#22C55E]/10 text-[#22C55E]" : "bg-slate-200 text-slate-500")}>
@@ -420,7 +498,7 @@ export default function CloudIntelligenceEngine() {
             </div>
 
             {/* Rule 2 */}
-            <div className="p-3 rounded-xl border border-slate-100 bg-[#F8FAFC]">
+            <div className="p-3 rounded-xl border border-white/40 bg-white/50">
               <div className="flex justify-between items-start mb-2">
                 <span className="text-[10px] font-bold text-slate-500 uppercase">Trigger</span>
                 <span className={cn("text-[9px] font-bold px-1.5 py-0.5 rounded-sm", 
@@ -435,7 +513,7 @@ export default function CloudIntelligenceEngine() {
             </div>
 
             {/* Rule 3 */}
-            <div className="p-3 rounded-xl border border-slate-100 bg-[#F8FAFC]">
+            <div className="p-3 rounded-xl border border-white/40 bg-white/50">
               <div className="flex justify-between items-start mb-2">
                 <span className="text-[10px] font-bold text-slate-500 uppercase">Trigger</span>
                 <span className={cn("text-[9px] font-bold px-1.5 py-0.5 rounded-sm", selectedId ? "bg-[#22C55E]/10 text-[#22C55E]" : "bg-slate-200 text-slate-500")}>
@@ -447,7 +525,7 @@ export default function CloudIntelligenceEngine() {
             </div>
 
             {/* Rule 4 */}
-            <div className="p-3 rounded-xl border border-slate-100 bg-[#F8FAFC]">
+            <div className="p-3 rounded-xl border border-white/40 bg-white/50">
               <div className="flex justify-between items-start mb-2">
                 <span className="text-[10px] font-bold text-slate-500 uppercase">Trigger</span>
                 <span className={cn("text-[9px] font-bold px-1.5 py-0.5 rounded-sm", isCompleted ? "bg-[#22C55E]/10 text-[#22C55E]" : "bg-slate-200 text-slate-500")}>
