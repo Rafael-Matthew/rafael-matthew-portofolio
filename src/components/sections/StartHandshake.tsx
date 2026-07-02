@@ -7,10 +7,32 @@ export default function StartHandshake() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [formData, setFormData] = useState({ name: '', email: '', contact: '', purpose: 'Collaboration', message: '' });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate network request
+    
+    const text = `Hello Rafael Matthew! \n\nIdentity: ${formData.name}\nEmail: ${formData.email}\nContact (WA): ${formData.contact}\nPurpose: ${formData.purpose}\n\nMessage:\n${formData.message}`;
+    const encodedText = encodeURIComponent(text);
+    
+    // 1. Buka WhatsApp di tab baru
+    window.open(`https://wa.me/6289612378711?text=${encodedText}`, '_blank');
+    
+    // 2. Gunakan trik iframe tersembunyi agar aplikasi Email terbuka 
+    // tanpa mengganggu/membatalkan navigasi WhatsApp
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = `mailto:rafaelmatthew2305@gmail.com?subject=CloudVerse Handshake: ${formData.purpose}&body=${encodedText}`;
+    document.body.appendChild(iframe);
+    
+    // Bersihkan iframe setelah beberapa saat
+    setTimeout(() => {
+      if (document.body.contains(iframe)) {
+        document.body.removeChild(iframe);
+      }
+    }, 2000);
+    
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -63,27 +85,33 @@ export default function StartHandshake() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-slate-500 uppercase">Identity (Name)</label>
-                    <input required type="text" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="John Doe" />
+                    <input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} type="text" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="John Doe" />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-slate-500 uppercase">Return Address (Email)</label>
-                    <input required type="email" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="john@example.com" />
+                    <label className="text-xs font-bold text-slate-500 uppercase">Purpose</label>
+                    <select value={formData.purpose} onChange={e => setFormData({...formData, purpose: e.target.value})} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none">
+                      <option>Collaboration</option>
+                      <option>Hiring / Recruitment</option>
+                      <option>Project Inquiry</option>
+                      <option>Other</option>
+                    </select>
                   </div>
                 </div>
                 
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 uppercase">Protocol (Purpose)</label>
-                  <select className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none">
-                    <option>Collaboration</option>
-                    <option>Hiring / Recruitment</option>
-                    <option>Project Inquiry</option>
-                    <option>Other</option>
-                  </select>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-500 uppercase">Email</label>
+                    <input required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} type="email" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="john@example.com" />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-500 uppercase">Contact (WA)</label>
+                    <input required value={formData.contact} onChange={e => setFormData({...formData, contact: e.target.value})} type="tel" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="+62 812 3456 7890" />
+                  </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 uppercase">Payload (Message)</label>
-                  <textarea required rows={4} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-none" placeholder="Enter your message here..."></textarea>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Message</label>
+                  <textarea required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={4} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-none" placeholder="Enter your message here..."></textarea>
                 </div>
 
                 <button 
