@@ -1,4 +1,4 @@
-export type SkillCategory = 'Software Core' | 'Cloud Layer' | 'AI Layer' | 'Data Layer';
+export type SkillCategory = 'Languages' | 'Frontend' | 'Backend' | 'Databases' | 'Cloud & DevOps' | 'Soft Skills';
 
 export type Skill = {
   name: string;
@@ -8,32 +8,47 @@ export type Skill = {
 };
 
 export const skills: Skill[] = [
-  // Software Core
-  { name: 'TypeScript', category: 'Software Core', description: 'Strongly typed JavaScript for scalable applications.' },
-  { name: 'JavaScript', category: 'Software Core', description: 'Core language for dynamic web functionality.' },
-  { name: 'Astro', category: 'Software Core', description: 'Web framework for building fast, content-focused websites.' },
-  { name: 'React', category: 'Software Core', description: 'UI library for interactive component-based interfaces.' },
-  { name: 'SolidJS', category: 'Software Core', description: 'Declarative, efficient and flexible JavaScript library for building user interfaces.' },
-  { name: 'Node.js', category: 'Software Core', description: 'JavaScript runtime for backend services.' },
+  // Languages
+  { name: 'JavaScript', category: 'Languages', description: 'Core language for dynamic web functionality.' },
+  { name: 'TypeScript', category: 'Languages', description: 'Strongly typed JavaScript for scalable applications.' },
+  { name: 'PHP', category: 'Languages', description: 'Server-side scripting language.' },
+  { name: 'Java', category: 'Languages', description: 'Object-oriented programming language.' },
+  { name: 'Python', category: 'Languages', description: 'Versatile language for backend and scripting.' },
+  { name: 'Kotlin', category: 'Languages', description: 'Modern language for Android and backend.' },
+  { name: 'GoLang', category: 'Languages', description: 'Statically typed, compiled programming language designed at Google.' },
 
-  // Cloud Layer
-  { name: 'Supabase', category: 'Cloud Layer', description: 'Open source Firebase alternative with Postgres.' },
-  { name: 'Firebase', category: 'Cloud Layer', description: 'App development platform by Google.' },
-  { name: 'Google Cloud', category: 'Cloud Layer', description: 'Suite of cloud computing services.' },
-  { name: 'Vercel', category: 'Cloud Layer', description: 'Platform for frontend frameworks and static sites.' },
-  { name: 'Serverless Deployment', category: 'Cloud Layer', description: 'Deploying applications without managing infrastructure.' },
+  // Frontend
+  { name: 'React.js', category: 'Frontend', description: 'UI library for interactive component-based interfaces.' },
+  { name: 'Next.js', category: 'Frontend', description: 'React framework for production.' },
+  { name: 'SolidJS', category: 'Frontend', description: 'Declarative, efficient UI library.' },
+  { name: 'SolidStart', category: 'Frontend', description: 'Meta-framework for SolidJS.' },
+  { name: 'Remix.js', category: 'Frontend', description: 'Full stack web framework.' },
+  { name: 'Astro', category: 'Frontend', description: 'Web framework for building fast, content-focused websites.' },
 
-  // AI Layer
-  { name: 'Prompt Engineering', category: 'AI Layer', description: 'Designing effective prompts for LLMs.' },
-  { name: 'LLM Integration', category: 'AI Layer', description: 'Connecting applications with Large Language Models.' },
-  { name: 'AI Workflow', category: 'AI Layer', description: 'Automating processes with AI agents.' },
-  { name: 'Computer Vision Basics', category: 'AI Layer', description: 'Image processing and analysis techniques.' },
-  { name: 'Automation', category: 'AI Layer', description: 'Streamlining repetitive tasks via scripting.' },
+  // Backend
+  { name: 'Express.js', category: 'Backend', description: 'Fast, unopinionated, minimalist web framework for Node.js.' },
+  { name: 'Laravel', category: 'Backend', description: 'PHP framework for web artisans.' },
+  { name: 'FastAPI', category: 'Backend', description: 'Modern, fast web framework for building APIs with Python.' },
 
-  // Data Layer
-  { name: 'PostgreSQL', category: 'Data Layer', description: 'Advanced open source relational database.' },
-  { name: 'MongoDB', category: 'Data Layer', description: 'NoSQL document database for flexible data modeling.' },
-  { name: 'API Design', category: 'Data Layer', description: 'Creating robust and scalable REST/GraphQL APIs.' },
-  { name: 'Authentication', category: 'Data Layer', description: 'Secure user login and identity management.' },
-  { name: 'Storage', category: 'Data Layer', description: 'Managing cloud storage (S3 buckets, etc).' },
+  // Databases
+  { name: 'MySQL', category: 'Databases', description: 'Open-source relational database management system.' },
+  { name: 'PostgreSQL', category: 'Databases', description: 'Advanced open source relational database.' },
+  { name: 'MongoDB', category: 'Databases', description: 'NoSQL document database for flexible data modeling.' },
+  { name: 'Supabase', category: 'Databases', description: 'Open source Firebase alternative.' },
+
+  // Cloud & DevOps
+  { name: 'Google Cloud Platform (GCP)', category: 'Cloud & DevOps', description: 'Suite of cloud computing services.' },
+  { name: 'Amazon Web Services (AWS)', category: 'Cloud & DevOps', description: 'Comprehensive cloud platform.' },
+  { name: 'Git', category: 'Cloud & DevOps', description: 'Distributed version control system.' },
+  { name: 'Cisco', category: 'Cloud & DevOps', description: 'Networking and IT infrastructure.' },
+  { name: 'Redhat', category: 'Cloud & DevOps', description: 'Enterprise open source solutions and Linux OS.' },
+  { name: 'Blynk IoT', category: 'Cloud & DevOps', description: 'IoT platform for connecting devices to the cloud.' },
+
+  // Soft Skills
+  { name: 'Leadership', category: 'Soft Skills', description: 'Guiding and motivating teams to achieve goals.' },
+  { name: 'Problem Solving', category: 'Soft Skills', description: 'Analyzing issues and finding effective solutions.' },
+  { name: 'Critical Thinking', category: 'Soft Skills', description: 'Objective analysis and evaluation of an issue.' },
+  { name: 'Adaptability', category: 'Soft Skills', description: 'Adjusting to new conditions and technologies.' },
+  { name: 'Public Speaking', category: 'Soft Skills', description: 'Communicating ideas clearly to an audience.' },
+  { name: 'Teamwork', category: 'Soft Skills', description: 'Collaborating effectively with others.' },
 ];

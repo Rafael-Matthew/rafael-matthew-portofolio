@@ -1,32 +1,58 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { skills, type SkillCategory, type Skill } from '@/data/skills';
-import { Layers, Box, Cpu, Database, Cloud } from 'lucide-react';
+import { Code2, LayoutTemplate, Server, Database, Cloud, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function TechArsenal() {
-  const [activeCategory, setActiveCategory] = useState<SkillCategory>('Software Core');
+  const [activeCategory, setActiveCategory] = useState<SkillCategory>('Languages');
   const [hoveredSkill, setHoveredSkill] = useState<Skill | null>(null);
 
   const categories: { id: SkillCategory; icon: React.ReactNode; color: string }[] = [
-    { id: 'Software Core', icon: <Box className="w-5 h-5" />, color: 'text-primary bg-primary/10 border-primary/20' },
-    { id: 'Cloud Layer', icon: <Cloud className="w-5 h-5" />, color: 'text-secondary bg-secondary/10 border-secondary/20' },
-    { id: 'AI Layer', icon: <Cpu className="w-5 h-5" />, color: 'text-accent bg-accent/10 border-accent/20' },
-    { id: 'Data Layer', icon: <Database className="w-5 h-5" />, color: 'text-success bg-success/10 border-success/20' },
+    { id: 'Languages', icon: <Code2 className="w-5 h-5" />, color: 'text-primary bg-primary/10 border-primary/20' },
+    { id: 'Frontend', icon: <LayoutTemplate className="w-5 h-5" />, color: 'text-secondary bg-secondary/10 border-secondary/20' },
+    { id: 'Backend', icon: <Server className="w-5 h-5" />, color: 'text-accent bg-accent/10 border-accent/20' },
+    { id: 'Databases', icon: <Database className="w-5 h-5" />, color: 'text-success bg-success/10 border-success/20' },
+    { id: 'Cloud & DevOps', icon: <Cloud className="w-5 h-5" />, color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
+    { id: 'Soft Skills', icon: <Users className="w-5 h-5" />, color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
   ];
 
   const filteredSkills = skills.filter(skill => skill.category === activeCategory);
+
+  const getHoverClass = (cat: SkillCategory) => {
+    switch (cat) {
+      case 'Languages': return "hover:border-primary/50 hover:shadow-primary/10";
+      case 'Frontend': return "hover:border-secondary/50 hover:shadow-secondary/10";
+      case 'Backend': return "hover:border-accent/50 hover:shadow-accent/10";
+      case 'Databases': return "hover:border-success/50 hover:shadow-success/10";
+      case 'Cloud & DevOps': return "hover:border-blue-500/50 hover:shadow-blue-500/10";
+      case 'Soft Skills': return "hover:border-purple-500/50 hover:shadow-purple-500/10";
+      default: return "hover:border-slate-500/50 hover:shadow-slate-500/10";
+    }
+  };
+
+  const getShadowClass = (cat: SkillCategory) => {
+    switch (cat) {
+      case 'Languages': return "shadow-primary/10";
+      case 'Frontend': return "shadow-secondary/10";
+      case 'Backend': return "shadow-accent/10";
+      case 'Databases': return "shadow-success/10";
+      case 'Cloud & DevOps': return "shadow-blue-500/10";
+      case 'Soft Skills': return "shadow-purple-500/10";
+      default: return "shadow-slate-500/10";
+    }
+  };
 
   return (
     <section id="tech-arsenal" className="py-20 px-4 w-full bg-section border-y border-slate-200/50">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-3 mb-12">
           <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
-            <Layers className="w-6 h-6" />
+            <LayoutTemplate className="w-6 h-6" />
           </div>
           <div>
             <h2 className="text-3xl font-bold text-text-main">Tech Arsenal</h2>
-            <p className="text-text-muted">Technology Stack & Cloud Layers</p>
+            <p className="text-text-muted">Technology Stack & Key Skills</p>
           </div>
         </div>
 
@@ -42,7 +68,7 @@ export default function TechArsenal() {
                   className={cn(
                     "w-full text-left p-4 rounded-2xl flex items-center gap-4 transition-all duration-300 border-2",
                     isActive 
-                      ? `bg-white shadow-md border-transparent ${cat.id === 'Software Core' ? 'shadow-primary/10' : cat.id === 'Cloud Layer' ? 'shadow-secondary/10' : cat.id === 'AI Layer' ? 'shadow-accent/10' : 'shadow-success/10'}`
+                      ? `bg-white shadow-md border-transparent ${getShadowClass(cat.id)}`
                       : "bg-transparent border-transparent hover:bg-white/50 text-text-muted hover:text-text-main"
                   )}
                 >
@@ -101,10 +127,7 @@ export default function TechArsenal() {
                       className={cn(
                         "px-6 py-4 bg-white rounded-2xl shadow-sm border border-slate-100 cursor-pointer transition-all duration-300",
                         "hover:shadow-lg hover:-translate-y-1",
-                        activeCategory === 'Software Core' ? "hover:border-primary/50 hover:shadow-primary/10" :
-                        activeCategory === 'Cloud Layer' ? "hover:border-secondary/50 hover:shadow-secondary/10" :
-                        activeCategory === 'AI Layer' ? "hover:border-accent/50 hover:shadow-accent/10" :
-                        "hover:border-success/50 hover:shadow-success/10"
+                        getHoverClass(activeCategory)
                       )}
                     >
                       <span className="font-semibold text-text-main">{skill.name}</span>
