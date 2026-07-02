@@ -45,7 +45,7 @@ export default function TechArsenal() {
 
   return (
     <section id="tech-arsenal" className="py-20 px-4 w-full bg-section border-y border-slate-200/50">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto glass-card p-8 md:p-12">
         <div className="flex items-center gap-3 mb-12">
           <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
             <LayoutTemplate className="w-6 h-6" />
@@ -68,8 +68,8 @@ export default function TechArsenal() {
                   className={cn(
                     "w-full text-left p-4 rounded-2xl flex items-center gap-4 transition-all duration-300 border-2",
                     isActive 
-                      ? `bg-white shadow-md border-transparent ${getShadowClass(cat.id)}`
-                      : "bg-transparent border-transparent hover:bg-white/50 text-text-muted hover:text-text-main"
+                      ? `bg-white/50 shadow-md border-white/20 ${getShadowClass(cat.id)}`
+                      : "bg-transparent border-transparent hover:bg-white/30 text-text-muted hover:text-text-main"
                   )}
                 >
                   <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center border", cat.color)}>
@@ -87,7 +87,7 @@ export default function TechArsenal() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="mt-6 p-5 glass-card border-l-4 border-l-primary"
+                  className="mt-6 p-5 glass border-l-4 border-l-primary rounded-xl"
                 >
                   <h4 className="font-bold text-text-main mb-1">{hoveredSkill.name}</h4>
                   <p className="text-sm text-text-muted">{hoveredSkill.description}</p>
@@ -95,7 +95,7 @@ export default function TechArsenal() {
               )}
             </AnimatePresence>
             {!hoveredSkill && (
-               <div className="mt-6 p-5 glass-card opacity-50 border-dashed border-2">
+               <div className="mt-6 p-5 glass opacity-50 border-dashed border-2 rounded-xl">
                  <p className="text-sm text-text-muted text-center">Hover over a node to view details.</p>
                </div>
             )}
@@ -103,9 +103,9 @@ export default function TechArsenal() {
 
           {/* Skill Grid/Nodes (Right) */}
           <div className="lg:col-span-8">
-            <div className="glass p-8 rounded-3xl min-h-[400px] relative overflow-hidden flex flex-wrap content-start gap-4">
+            <div className="bg-white/20 border border-white/30 p-8 rounded-3xl min-h-[400px] relative overflow-hidden flex flex-wrap content-start gap-4">
               {/* Background decoration */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/40 rounded-full blur-[80px] -z-10" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-[80px] -z-10" />
               
               <AnimatePresence mode="wait">
                 <motion.div
@@ -126,7 +126,7 @@ export default function TechArsenal() {
                       onMouseLeave={() => setHoveredSkill(null)}
                       className={cn(
                         "px-6 py-4 bg-white rounded-2xl shadow-sm border border-slate-100 cursor-pointer transition-all duration-300",
-                        "hover:shadow-lg hover:-translate-y-1",
+                        "hover:shadow-lg hover:-translate-y-1 hover:bg-slate-50",
                         getHoverClass(activeCategory)
                       )}
                     >

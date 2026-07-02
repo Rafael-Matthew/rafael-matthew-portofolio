@@ -34,7 +34,8 @@ export default function DeploymentZone({ projects }: { projects: Project[] }) {
   };
 
   return (
-    <section id="deployment-zone" className="py-20 px-4 max-w-5xl mx-auto">
+    <section id="deployment-zone" className="py-20 px-4 w-full">
+      <div className="max-w-5xl mx-auto glass-card p-8 md:p-12">
       <div className="flex items-center gap-3 mb-12">
         <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
           <Server className="w-6 h-6" />
@@ -205,6 +206,7 @@ export default function DeploymentZone({ projects }: { projects: Project[] }) {
               </AnimatePresence>
             )}
           </div>
+        </div>
         </div>
       </div>
     </section>

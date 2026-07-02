@@ -53,7 +53,7 @@ export default function TimelinePipeline({ projects = [] }: { projects?: Project
 
   return (
     <section id="timeline-pipeline" className="py-20 px-4 w-full bg-section border-y border-slate-200/50 overflow-hidden">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto glass-card p-8 md:p-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

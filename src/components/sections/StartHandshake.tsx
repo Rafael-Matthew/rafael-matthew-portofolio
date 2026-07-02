@@ -18,7 +18,8 @@ export default function StartHandshake() {
   };
 
   return (
-    <section id="start-handshake" className="py-20 px-4 max-w-3xl mx-auto w-full pb-32">
+    <section id="start-handshake" className="py-20 px-4 w-full pb-32">
+      <div className="max-w-3xl mx-auto glass-card p-8 md:p-12">
       <div className="text-center mb-10">
         <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mx-auto mb-4">
           <PhoneCall className="w-6 h-6" />
@@ -27,7 +28,7 @@ export default function StartHandshake() {
         <p className="text-text-muted">Initiate a secure connection for collaboration or hiring.</p>
       </div>
 
-      <div className="glass-card p-6 md:p-8 relative overflow-hidden">
+      <div className="relative overflow-hidden">
         <AnimatePresence mode="wait">
           {isSubmitted ? (
             <motion.div
@@ -100,6 +101,7 @@ export default function StartHandshake() {
             </motion.div>
           )}
         </AnimatePresence>
+      </div>
       </div>
     </section>
   );
