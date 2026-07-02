@@ -5,9 +5,9 @@ import HeroCloudVerse from '@/components/sections/HeroCloudVerse';
 import IdentityCore from '@/components/sections/IdentityCore';
 import TechArsenal from '@/components/sections/TechArsenal';
 import DeploymentZone from '@/components/sections/DeploymentZone';
-import AILab from '@/components/sections/AILab';
+import CloudIntelligenceEngine from '@/components/sections/CloudIntelligenceEngine';
 import TimelinePipeline from '@/components/sections/TimelinePipeline';
-import CloudComputeCenter from '@/components/sections/CloudComputeCenter';
+
 import StartHandshake from '@/components/sections/StartHandshake';
 import { supabase } from '@/lib/supabaseClient';
 
@@ -43,10 +43,10 @@ const fetchedProjects = dbProjects?.map((p: any) => ({
     <IdentityCore client:load />
     <TechArsenal client:load />
     <DeploymentZone client:load projects={fetchedProjects} />
-    <AILab client:load projects={fetchedProjects} />
+    <CloudIntelligenceEngine client:load />
     <TimelinePipeline client:load projects={fetchedProjects} />
     
-    <CloudComputeCenter client:load />
+
 
     <StartHandshake client:load />
   </main>
