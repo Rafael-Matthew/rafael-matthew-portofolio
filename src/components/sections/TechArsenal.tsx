@@ -80,25 +80,7 @@ export default function TechArsenal() {
               );
             })}
 
-            {/* Info Panel for Hovered Skill */}
-            <AnimatePresence mode="wait">
-              {hoveredSkill && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="mt-6 p-5 glass border-l-4 border-l-primary rounded-xl"
-                >
-                  <h4 className="font-bold text-text-main mb-1">{hoveredSkill.name}</h4>
-                  <p className="text-sm text-text-muted">{hoveredSkill.description}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            {!hoveredSkill && (
-               <div className="mt-6 p-5 glass opacity-50 border-dashed border-2 rounded-xl">
-                 <p className="text-sm text-text-muted text-center">Hover over a node to view details.</p>
-               </div>
-            )}
+
           </div>
 
           {/* Skill Grid/Nodes (Right) */}
@@ -134,6 +116,34 @@ export default function TechArsenal() {
                     </motion.div>
                   ))}
                 </motion.div>
+              </AnimatePresence>
+            </div>
+            
+            {/* Info Panel for Hovered Skill */}
+            <div className="mt-6 relative w-full h-[120px]">
+              <AnimatePresence mode="wait">
+                {hoveredSkill ? (
+                  <motion.div
+                    key="content"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="p-5 glass border-l-4 border-l-primary rounded-xl w-full absolute inset-0 flex flex-col justify-center"
+                  >
+                    <h4 className="font-bold text-text-main mb-1">{hoveredSkill.name}</h4>
+                    <p className="text-sm text-text-muted">{hoveredSkill.description}</p>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="empty"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="p-5 glass opacity-50 border-dashed border-2 rounded-xl w-full absolute inset-0 flex items-center justify-center"
+                  >
+                    <p className="text-sm text-text-muted text-center">Hover over a node to view details.</p>
+                  </motion.div>
+                )}
               </AnimatePresence>
             </div>
           </div>
