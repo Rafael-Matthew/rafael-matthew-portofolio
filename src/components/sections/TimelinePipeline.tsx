@@ -17,6 +17,7 @@ export default function TimelinePipeline({ projects = [] }: { projects?: Project
       else if (project.status === 'Beta') type = 'merge';
 
       return {
+        id: project.id,
         year: project.period || '2024',
         type,
         message: `Project: ${project.name}`,
@@ -50,6 +51,16 @@ export default function TimelinePipeline({ projects = [] }: { projects?: Project
       setSelectedYear(sortedYears[0]);
     }
   }, [sortedYears, selectedYear]);
+
+  useEffect(() => {
+    const handleOpenYear = (e: any) => {
+      if (e.detail && e.detail.year) {
+        setSelectedYear(e.detail.year);
+      }
+    };
+    window.addEventListener('open-timeline-year', handleOpenYear as EventListener);
+    return () => window.removeEventListener('open-timeline-year', handleOpenYear as EventListener);
+  }, []);
 
   return (
     <section id="timeline-pipeline" className="py-20 px-4 w-full bg-section border-y border-slate-200/50 overflow-hidden">
@@ -137,6 +148,7 @@ export default function TimelinePipeline({ projects = [] }: { projects?: Project
 
                     return (
                       <motion.div 
+                        id={event.id}
                         key={event.message + index} 
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}

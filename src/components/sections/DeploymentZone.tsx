@@ -10,6 +10,20 @@ export default function DeploymentZone({ projects }: { projects: Project[] }) {
   const [isDeploying, setIsDeploying] = useState(false);
   const [deployLogs, setDeployLogs] = useState<string[]>([]);
 
+  React.useEffect(() => {
+    const handleOpenProject = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      if (customEvent.detail && customEvent.detail.projectId) {
+        const proj = projects.find(p => p.id === customEvent.detail.projectId);
+        if (proj) {
+          handleProjectClick(proj);
+        }
+      }
+    };
+    window.addEventListener('open-deployment-project', handleOpenProject);
+    return () => window.removeEventListener('open-deployment-project', handleOpenProject);
+  }, [projects]);
+
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
     setIsDeploying(true);

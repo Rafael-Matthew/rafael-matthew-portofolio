@@ -20,7 +20,11 @@ import {
   FolderOpen,
   ChevronRight,
   ChevronDown,
-  FileCode2
+  FileCode2,
+  User,
+  Terminal,
+  Layers,
+  Briefcase
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Project } from '@/data/projects';
@@ -35,114 +39,96 @@ type Experiment = {
   relatedProject: string;
   status: 'Active' | 'Prototype' | 'Concept' | 'Ready';
   icon: React.ElementType<{ className?: string }>;
+  year?: string;
 };
 
 const experiments: Experiment[] = [
   {
-    id: 'routing',
-    name: 'Smart Portfolio Routing',
-    description: 'Routes visitor intent into the most relevant portfolio sections.',
-    aiType: 'Intent Mapping',
-    relatedProject: 'CloudVerse Portfolio',
+    id: 'identity-core',
+    name: 'Identity Core',
+    description: 'The central hub of my professional identity and core principles.',
+    aiType: 'Portfolio Intelligence',
+    relatedProject: 'Rafael Matthew Portfolio',
     status: 'Active',
-    icon: Network
+    icon: User
   },
   {
-    id: 'posture',
-    name: 'Computer Vision Posture Lab',
-    description: 'Simulates visual analysis workflow for sport posture evaluation.',
-    aiType: 'Computer Vision',
-    relatedProject: 'AI Billiard Coach',
-    status: 'Prototype',
-    icon: Eye
-  },
-  {
-    id: 'insight',
-    name: 'Document Insight Extractor',
-    description: 'Converts unstructured documents into structured summaries and key insights.',
-    aiType: 'NLP / Information Extraction',
-    relatedProject: 'Academic & Productivity Tools',
-    status: 'Concept',
-    icon: FileText
-  },
-  {
-    id: 'reco',
-    name: 'Project Recommendation Engine',
-    description: 'Matches project showcases based on visitor intent signals.',
-    aiType: 'Recommendation Logic',
-    relatedProject: 'CloudVerse Portfolio',
+    id: 'tech-arsenal',
+    name: 'Tech Arsenal',
+    description: 'A comprehensive list of my technical skills, languages, and frameworks.',
+    aiType: 'Portfolio Intelligence',
+    relatedProject: 'Rafael Matthew Portfolio',
     status: 'Active',
-    icon: MousePointer2
+    icon: Terminal
   },
   {
-    id: 'deploy',
-    name: 'Cloud AI Deployment Flow',
-    description: 'Shows how AI features connect with API, storage, automation, and monitoring.',
-    aiType: 'AI System Architecture',
-    relatedProject: 'Cloud AI Workflow',
-    status: 'Ready',
-    icon: Box
+    id: 'deployment-zone',
+    name: 'Deployment Zone',
+    description: 'Showcasing my journey through various projects and real-world deployments.',
+    aiType: 'Portfolio Intelligence',
+    relatedProject: 'Rafael Matthew Portfolio',
+    status: 'Active',
+    icon: Layers
+  },
+  {
+    id: 'start-handshake',
+    name: 'Start Handshake',
+    description: 'Initiate a connection, collaborate on a project, or just say hello.',
+    aiType: 'Portfolio Intelligence',
+    relatedProject: 'Rafael Matthew Portfolio',
+    status: 'Active',
+    icon: Briefcase
   }
 ];
 
 const pipelineTemplates: Record<string, string[]> = {
   'default': ['Input Data', 'Pre-processing', 'AI Runtime', 'Cloud Function', 'Storage', 'Result', 'Monitoring'],
-  'routing': ['Visitor Intent', 'Intent Mapping', 'Route Engine', 'Section Match', 'Recommended Path', 'Interaction Tracking'],
-  'posture': ['Image / Video', 'Pose Detection', 'Feature Extractor', 'AI Analysis', 'Feedback Result', 'Performance Monitor'],
-  'insight': ['Document Input', 'Text Parsing', 'Entity Detection', 'Insight Extraction', 'Structured Summary', 'Export Result'],
-  'reco': ['Visitor Role', 'Preference Signal', 'Project Scoring', 'Recommend Logic', 'Best Match', 'CTA Suggestion'],
-  'deploy': ['AI Request', 'API Gateway', 'Model Runtime', 'Serverless Fn', 'Cloud Storage', 'Monitoring Logs']
+  'identity-core': ['Visitor Load', 'Profile Fetch', 'Identity Auth', 'Data Parse', 'Render Core', 'Display'],
+  'tech-arsenal': ['Skill Query', 'Filter Category', 'Node Mapping', 'Skill Render', 'Hover Event', 'Display Detail'],
+  'deployment-zone': ['Fetch Projects', 'Timeline Map', 'Sort Date', 'Render Node', 'Link Github', 'Project Ready'],
+  'start-handshake': ['Connection Init', 'Form Load', 'Input Validate', 'Social Link', 'Message Queue', 'Handshake Send']
 };
 
 const runtimeMetricsData: Record<string, any> = {
   'default': { status: 'Active', layer: 'Ready', rules: '3 Enabled', sync: 'Online', latency: '128ms', service: 'ai-lab-vm' },
-  'routing': { status: 'Active', layer: 'Intent Engine', rules: '4 Enabled', sync: 'Online', latency: '64ms', service: 'router-vm' },
-  'posture': { status: 'Prototype Running', layer: 'Vision Pipeline', rules: '2 Enabled', sync: 'Online', latency: '182ms', service: 'ai-lab-vm / vision-node' },
-  'insight': { status: 'Concept Ready', layer: 'NLP Pipeline', rules: '3 Enabled', sync: 'Online', latency: '146ms', service: 'document-insight-node' },
-  'reco': { status: 'Active', layer: 'Scoring Engine', rules: '5 Enabled', sync: 'Online', latency: '89ms', service: 'reco-engine-vm' },
-  'deploy': { status: 'Ready', layer: 'System Arch', rules: '8 Enabled', sync: 'Online', latency: '42ms', service: 'api-gateway' }
+  'identity-core': { status: 'Active', layer: 'Core UI', rules: '2 Enabled', sync: 'Online', latency: '12ms', service: 'profile-edge' },
+  'tech-arsenal': { status: 'Active', layer: 'Skill Matrix', rules: '4 Enabled', sync: 'Online', latency: '15ms', service: 'tech-graph' },
+  'deployment-zone': { status: 'Active', layer: 'Project Graph', rules: '6 Enabled', sync: 'Online', latency: '34ms', service: 'deploy-router' },
+  'start-handshake': { status: 'Active', layer: 'Contact Gateway', rules: '1 Enabled', sync: 'Online', latency: '22ms', service: 'contact-api' }
 };
 
 const insightsData: Record<string, any> = {
-  'routing': {
-    detected: 'AI-like decision flow and user intent mapping',
-    focus: 'Turning visitor intent into personalized portfolio navigation',
-    skills: 'TypeScript, UI State, Recommendation Logic, Automation',
-    project: 'CloudVerse Portfolio',
-    role: 'Client-side intelligence layer with cloud-inspired routing',
-    action: 'Explore Deployment Zone'
+  'identity-core': {
+    detected: 'Identity Profile and Core Values',
+    focus: 'Presenting professional background and vision clearly',
+    skills: 'Personal Branding, Communication, Vision',
+    project: 'Rafael Matthew Portfolio',
+    role: 'Central user identity rendering',
+    action: 'Scroll to Identity Core'
   },
-  'posture': {
-    detected: 'Computer vision workflow design',
-    focus: 'Processing visual input into structured posture feedback',
-    skills: 'MediaPipe, AI Analysis, Kotlin, Computer Vision Basics',
-    project: 'AI Billiard Coach',
-    role: 'Runtime processing, storage, and monitoring pipeline',
-    action: 'View AI Billiard Coach deployment'
+  'tech-arsenal': {
+    detected: 'Comprehensive Technical Stack',
+    focus: 'Organizing and rendering complex skill sets',
+    skills: 'Full Stack, Cloud, AI, Databases',
+    project: 'Rafael Matthew Portfolio',
+    role: 'Interactive skill matrix rendering',
+    action: 'Scroll to Tech Arsenal'
   },
-  'insight': {
-    detected: 'Information extraction and summarization',
-    focus: 'Parsing unstructured text into structured insights',
-    skills: 'NLP Concepts, Text Parsing, Data Structuring',
-    project: 'Academic & Productivity Tools',
-    role: 'Data processing pipeline and structured storage',
-    action: 'View related academic projects'
+  'deployment-zone': {
+    detected: 'Project Deployment and Timeline',
+    focus: 'Showcasing real-world impact and project delivery',
+    skills: 'Project Management, Deployment, Full Cycle',
+    project: 'Rafael Matthew Portfolio',
+    role: 'Project history timeline visualization',
+    action: 'Scroll to Deployment Zone'
   },
-  'reco': {
-    detected: 'Intent-based matching and recommendation',
-    focus: 'Scoring items based on multi-dimensional user signals',
-    skills: 'Recommendation Algorithms, Scoring Logic, UX Design',
-    project: 'CloudVerse Portfolio',
-    role: 'Personalization engine acting as edge middleware',
-    action: 'Try filtering projects'
-  },
-  'deploy': {
-    detected: 'End-to-end cloud AI integration',
-    focus: 'Connecting serverless, models, storage, and APIs',
-    skills: 'System Design, Serverless, Cloud Storage, MLOps basics',
-    project: 'Cloud AI Workflow',
-    role: 'Orchestrating cloud resources for AI workloads',
-    action: 'View architectural diagrams'
+  'start-handshake': {
+    detected: 'Networking and Collaboration Gateway',
+    focus: 'Facilitating professional connections and opportunities',
+    skills: 'Networking, Communication, Collaboration',
+    project: 'Rafael Matthew Portfolio',
+    role: 'Client connection and message routing',
+    action: 'Scroll to Start Handshake'
   }
 };
 
@@ -166,7 +152,8 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
     aiType: p.type || 'Data Pipeline',
     relatedProject: p.name,
     status: p.status === 'Completed' ? 'Ready' : p.status === 'Beta' ? 'Prototype' : 'Active',
-    icon: Database
+    icon: Database,
+    year: p.period || '2024'
   }));
 
   const allExperiments = [...dbExperiments, ...experiments];
@@ -197,7 +184,9 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
         skills: 'Cloud Integration, Workflow Automation',
         project: allExperiments.find(e => e.id === selectedId)?.relatedProject || 'Unknown',
         role: 'Dynamic cloud workflow execution',
-        action: 'View Project Details'
+        action: 'View Project Details',
+        targetId: 'deployment-zone',
+        year: allExperiments.find(e => e.id === selectedId)?.year
       })
     : null;
 
@@ -244,24 +233,28 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
             <h3 className="text-sm font-bold text-[#64748B] flex items-center gap-2 mb-1">
               <Box className="w-4 h-4" /> Experiment Gallery
             </h3>
-            <div className="flex flex-col gap-2 h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+            
+            <div className="flex flex-col gap-1 h-[500px] overflow-y-auto pr-2 custom-scrollbar font-mono">
               {Object.entries(groupedExperiments).map(([folderName, exps]) => (
-                <div key={folderName} className="flex flex-col gap-2 mb-1">
+                <div key={folderName} className="flex flex-col mb-1">
                   
                   {/* Folder Header */}
                   <button 
                     onClick={() => toggleFolder(folderName)}
-                    className="flex items-center gap-2 px-2 py-2 w-full text-left hover:bg-white/40 rounded-xl transition-all group"
+                    className="flex items-center gap-1.5 px-2 py-1.5 w-full text-left hover:bg-slate-200/50 rounded transition-all group"
                   >
                     {isFolderOpen(folderName) ? (
-                      <FolderOpen className="w-4 h-4 text-[#2563EB] fill-[#2563EB]/20" />
+                      <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
                     ) : (
-                      <Folder className="w-4 h-4 text-slate-500 fill-slate-500/20 group-hover:text-[#2563EB]" />
+                      <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
                     )}
-                    <span className="font-bold text-sm text-[#0F172A]">{folderName}</span>
-                    <span className="ml-auto text-[10px] bg-white/50 border border-white/40 px-1.5 py-0.5 rounded-md text-slate-500 font-bold">
-                      {exps.length}
-                    </span>
+                    
+                    {isFolderOpen(folderName) ? (
+                      <FolderOpen className="w-4 h-4 text-blue-500 fill-blue-500/20" />
+                    ) : (
+                      <Folder className="w-4 h-4 text-slate-500 fill-slate-500/20" />
+                    )}
+                    <span className="text-sm text-slate-700">{folderName.toLowerCase()}</span>
                   </button>
                   
                   {/* Folder Contents */}
@@ -271,39 +264,29 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="flex flex-col gap-2 pl-3 border-l-2 border-[#2563EB]/10 ml-4 overflow-hidden"
+                        className="flex flex-col pl-6 ml-1.5 border-l border-slate-300/50 overflow-hidden"
                       >
                         {exps.map(exp => {
                           const isSelected = selectedId === exp.id;
-                          const Icon = exp.icon || FileText;
+                          const Icon = exp.icon || FileCode2;
+                          // Convert name to a slug format without extension
+                          const fileName = exp.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
                           
                           return (
                             <button
                               key={exp.id}
                               onClick={() => setSelectedId(exp.id)}
                               className={cn(
-                                "text-left p-3 rounded-xl border transition-all duration-300 relative overflow-hidden group",
+                                "flex items-center gap-2 text-left px-2 py-1.5 rounded transition-all duration-200",
                                 isSelected 
-                                  ? "bg-white/80 border-[#2563EB] shadow-md shadow-[#2563EB]/10 ring-1 ring-[#2563EB]/50 backdrop-blur-md text-slate-800" 
-                                  : "bg-white/40 border-white/40 hover:bg-white/60 hover:border-white/60 hover:shadow-sm backdrop-blur-sm text-slate-700"
+                                  ? "bg-blue-100/50 text-blue-700" 
+                                  : "hover:bg-slate-200/50 text-slate-600"
                               )}
                             >
-                              {isSelected && (
-                                <div className="absolute top-0 right-0 w-16 h-16 bg-[#2563EB]/10 blur-xl rounded-full translate-x-1/2 -translate-y-1/2" />
-                              )}
-                              <div className="flex justify-between items-start mb-2">
-                                <div className={cn(
-                                  "p-1.5 rounded-lg",
-                                  isSelected ? "bg-[#2563EB]/10 text-[#2563EB]" : "bg-white/50 border border-white/50 text-slate-600"
-                                )}>
-                                  <Icon className="w-3.5 h-3.5" />
-                                </div>
-                                <span className={cn("text-[9px] font-bold px-2 py-0.5 rounded-full border", statusColors[exp.status])}>
-                                  {exp.status}
-                                </span>
-                              </div>
-                              <h4 className={cn("font-bold text-xs mb-1", isSelected ? "text-[#2563EB]" : "text-[#0F172A]")}>{exp.name}</h4>
-                              <p className="text-[10px] text-[#64748B] line-clamp-2 leading-relaxed">{exp.description}</p>
+                              <Icon className={cn("w-3.5 h-3.5 shrink-0", isSelected ? "text-blue-600" : "text-slate-400")} />
+                              <span className={cn("text-xs truncate", isSelected ? "font-semibold" : "font-medium")}>
+                                {fileName}
+                              </span>
                             </button>
                           )
                         })}
@@ -466,7 +449,42 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
                       <p className="text-xs text-[#64748B]">{activeInsight.role}</p>
                     </div>
                     <div className="pt-2 mt-auto border-t border-slate-100">
-                      <button className="w-full text-xs font-bold text-[#2563EB] hover:text-[#2563EB]/80 flex items-center justify-between p-2 hover:bg-[#2563EB]/5 rounded-lg transition-colors">
+                      <button 
+                        onClick={() => {
+                          if (selectedId) {
+                            const insight = activeInsight;
+                            // Jika ada tahun, kirim event agar TimelinePipeline membuka tab tahun yang benar
+                            if (insight.year) {
+                               window.dispatchEvent(new CustomEvent('open-timeline-year', { detail: { year: insight.year } }));
+                            }
+                            
+                            // Kirim event agar Deployment Zone membuka proyek ini
+                            window.dispatchEvent(new CustomEvent('open-deployment-project', { detail: { projectId: selectedId } }));
+                            
+                            // Beri waktu 150ms agar DOM sempat melakukan render
+                            setTimeout(() => {
+                              const scrollTargetId = insight.targetId || selectedId;
+                              const element = document.getElementById(scrollTargetId);
+                              if (element) {
+                                element.scrollIntoView({ behavior: 'smooth' });
+                                
+                                // Efek Highlight sejenak
+                                element.style.transition = 'all 0.5s ease';
+                                const oldBg = element.style.backgroundColor;
+                                element.style.backgroundColor = 'rgba(37, 99, 235, 0.1)';
+                                element.style.borderRadius = '1rem';
+                                setTimeout(() => {
+                                  element.style.backgroundColor = oldBg;
+                                }, 2000);
+                              } else {
+                                // Fallback jika project tidak ditemukan
+                                document.getElementById('timeline-pipeline')?.scrollIntoView({ behavior: 'smooth' });
+                              }
+                            }, 150);
+                          }
+                        }}
+                        className="w-full text-xs font-bold text-[#2563EB] hover:text-[#2563EB]/80 flex items-center justify-between p-2 hover:bg-[#2563EB]/5 rounded-lg transition-colors"
+                      >
                         {activeInsight.action} <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
