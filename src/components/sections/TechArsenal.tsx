@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { skills, type SkillCategory, type Skill } from '@/data/skills';
-import { Code2, LayoutTemplate, Server, Database, Cloud, Users, Brain } from 'lucide-react';
+import { Code2, LayoutTemplate, Server, Database, Cloud, Users, Brain, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function TechArsenal() {
@@ -15,6 +15,7 @@ export default function TechArsenal() {
     { id: 'Databases', icon: <Database className="w-5 h-5" />, color: 'text-success bg-success/10 border-success/20' },
     { id: 'Cloud & DevOps', icon: <Cloud className="w-5 h-5" />, color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
     { id: 'AI', icon: <Brain className="w-5 h-5" />, color: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/20' },
+    { id: 'Cyber Security', icon: <Shield className="w-5 h-5" />, color: 'text-teal-500 bg-teal-500/10 border-teal-500/20' },
     { id: 'Soft Skills', icon: <Users className="w-5 h-5" />, color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
   ];
 
@@ -28,6 +29,7 @@ export default function TechArsenal() {
       case 'Databases': return "hover:border-success/50 hover:shadow-success/10";
       case 'Cloud & DevOps': return "hover:border-blue-500/50 hover:shadow-blue-500/10";
       case 'AI': return "hover:border-indigo-500/50 hover:shadow-indigo-500/10";
+      case 'Cyber Security': return "hover:border-teal-500/50 hover:shadow-teal-500/10";
       case 'Soft Skills': return "hover:border-purple-500/50 hover:shadow-purple-500/10";
       default: return "hover:border-slate-500/50 hover:shadow-slate-500/10";
     }
@@ -41,6 +43,7 @@ export default function TechArsenal() {
       case 'Databases': return "shadow-success/10";
       case 'Cloud & DevOps': return "shadow-blue-500/10";
       case 'AI': return "shadow-indigo-500/10";
+      case 'Cyber Security': return "shadow-teal-500/10";
       case 'Soft Skills': return "shadow-purple-500/10";
       default: return "shadow-slate-500/10";
     }
@@ -61,7 +64,7 @@ export default function TechArsenal() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Category Selector (Left) */}
-          <div className="lg:col-span-4 space-y-3">
+          <div className="lg:col-span-5 grid grid-cols-2 gap-3">
             {categories.map((cat) => {
               const isActive = activeCategory === cat.id;
               return (
@@ -70,7 +73,7 @@ export default function TechArsenal() {
                   suppressHydrationWarning
                   onClick={() => setActiveCategory(cat.id)}
                   className={cn(
-                    "w-full text-left p-4 rounded-2xl flex items-center gap-4 transition-all duration-300 border-2",
+                    "w-full text-center p-3 rounded-2xl flex flex-col items-center justify-center gap-2 transition-all duration-300 border-2",
                     isActive 
                       ? `bg-white/50 shadow-md border-white/20 ${getShadowClass(cat.id)}`
                       : "bg-transparent border-transparent hover:bg-white/30 text-text-muted hover:text-text-main"
@@ -79,17 +82,15 @@ export default function TechArsenal() {
                   <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center border", cat.color)}>
                     {cat.icon}
                   </div>
-                  <span className={cn("font-medium", isActive ? "text-text-main" : "")}>{cat.id}</span>
+                  <span className={cn("font-medium text-xs sm:text-sm", isActive ? "text-text-main font-bold" : "")}>{cat.id}</span>
                 </button>
               );
             })}
-
-
           </div>
 
           {/* Skill Grid/Nodes (Right) */}
-          <div className="lg:col-span-8">
-            <div className="bg-white/20 border border-white/30 p-8 rounded-3xl min-h-[400px] relative overflow-hidden flex flex-wrap content-start gap-4">
+          <div className="lg:col-span-7">
+            <div className="bg-white/20 border border-white/30 p-6 md:p-8 rounded-3xl min-h-[280px] relative overflow-hidden flex flex-wrap content-start gap-4">
               {/* Background decoration */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-[80px] -z-10" />
               

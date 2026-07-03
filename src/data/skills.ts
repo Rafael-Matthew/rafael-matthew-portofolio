@@ -1,4 +1,4 @@
-export type SkillCategory = 'Languages' | 'Frontend' | 'Backend' | 'Databases' | 'Cloud & DevOps' | 'Soft Skills' | 'AI';
+export type SkillCategory = 'Languages' | 'Frontend' | 'Backend' | 'Databases' | 'Cloud & DevOps' | 'Cyber Security' | 'Soft Skills' | 'AI';
 
 export type Skill = {
   name: string;
@@ -40,9 +40,14 @@ export const skills: Skill[] = [
   { name: 'Google Cloud Platform (GCP)', category: 'Cloud & DevOps', description: 'Suite of cloud computing services.' },
   { name: 'Amazon Web Services (AWS)', category: 'Cloud & DevOps', description: 'Comprehensive cloud platform.' },
   { name: 'Git', category: 'Cloud & DevOps', description: 'Distributed version control system.' },
-  { name: 'Cisco', category: 'Cloud & DevOps', description: 'Networking and IT infrastructure.' },
   { name: 'Redhat', category: 'Cloud & DevOps', description: 'Enterprise open source solutions and Linux OS.' },
   { name: 'Blynk IoT', category: 'Cloud & DevOps', description: 'IoT platform for connecting devices to the cloud.' },
+
+  // Cyber Security
+  { name: 'Cisco', category: 'Cyber Security', description: 'Network security, firewall configuration, and infrastructure defense.' },
+  { name: 'Web Auth & Authorization', category: 'Cyber Security', description: 'Implementing secure stateless authentication using JWT, OAuth 2.0, and Role-Based Access Control.' },
+  { name: 'Identity Access Mgmt (IAM)', category: 'Cyber Security', description: 'Securing application endpoints with JWT, token rotation, and secure cookie strategies.' },
+
 
   // Soft Skills
   { name: 'Leadership', category: 'Soft Skills', description: 'Guiding and motivating teams to achieve goals.' },
