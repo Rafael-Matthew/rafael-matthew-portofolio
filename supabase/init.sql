@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS public.experiences CASCADE;
 DROP TABLE IF EXISTS public.skills CASCADE;
 DROP TABLE IF EXISTS public.project_images CASCADE;
 DROP TABLE IF EXISTS public.projects CASCADE;
+DROP TABLE IF EXISTS public.timeline_events CASCADE;
 DROP TABLE IF EXISTS public.profiles CASCADE;
 DROP TABLE IF EXISTS public.admin_users CASCADE;
 
@@ -26,6 +27,14 @@ CREATE TABLE public.profiles (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     full_name TEXT NOT NULL,
     headline TEXT NOT NULL,
+    roles JSONB DEFAULT '[]'::jsonb,
+    focus TEXT,
+    status TEXT,
+    live_status TEXT,
+    professional_summary TEXT,
+    technical_side TEXT,
+    personal_side TEXT,
+    badges JSONB DEFAULT '[]'::jsonb,
     bio TEXT,
     email TEXT,
     phone TEXT,
@@ -75,6 +84,7 @@ CREATE TABLE public.skills (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name TEXT NOT NULL,
     category TEXT NOT NULL,
+    description TEXT,
     level TEXT,
     icon TEXT,
     sort_order INTEGER DEFAULT 0,
@@ -151,6 +161,17 @@ CREATE TABLE public.site_analytics (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- 12. timeline_events
+CREATE TABLE public.timeline_events (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    year TEXT NOT NULL,
+    type TEXT NOT NULL CHECK (type IN ('commit', 'init', 'deploy', 'merge')),
+    message TEXT NOT NULL,
+    details TEXT NOT NULL,
+    sort_order INTEGER DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 
 -- Row Level Security (RLS)
 
@@ -176,6 +197,7 @@ ALTER TABLE public.certificates ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.articles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.site_analytics ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.timeline_events ENABLE ROW LEVEL SECURITY;
 
 -- Admin can do anything on all tables
 CREATE POLICY "Admins have full access to profiles" ON public.profiles FOR ALL USING (public.is_admin());
@@ -187,6 +209,7 @@ CREATE POLICY "Admins have full access to education" ON public.education FOR ALL
 CREATE POLICY "Admins have full access to certificates" ON public.certificates FOR ALL USING (public.is_admin());
 CREATE POLICY "Admins have full access to articles" ON public.articles FOR ALL USING (public.is_admin());
 CREATE POLICY "Admins have full access to messages" ON public.messages FOR ALL USING (public.is_admin());
+CREATE POLICY "Admins have full access to timeline_events" ON public.timeline_events FOR ALL USING (public.is_admin());
 
 -- Public Policies
 CREATE POLICY "Public can view profiles" ON public.profiles FOR SELECT USING (true);
@@ -201,6 +224,7 @@ CREATE POLICY "Public can view certificates" ON public.certificates FOR SELECT U
 CREATE POLICY "Public can view published articles" ON public.articles FOR SELECT USING (status = 'published' OR public.is_admin());
 CREATE POLICY "Public can insert messages" ON public.messages FOR INSERT WITH CHECK (true);
 CREATE POLICY "Public can insert analytics" ON public.site_analytics FOR INSERT WITH CHECK (true);
+CREATE POLICY "Public can view timeline_events" ON public.timeline_events FOR SELECT USING (true);
 
 
 -- --------------------------------------------------------
@@ -208,11 +232,23 @@ CREATE POLICY "Public can insert analytics" ON public.site_analytics FOR INSERT 
 -- --------------------------------------------------------
 
 -- Profile
-INSERT INTO public.profiles (full_name, headline, bio, email, phone, location, linkedin_url)
+INSERT INTO public.profiles (
+    full_name, headline, roles, focus, status, live_status,
+    professional_summary, technical_side, personal_side, badges, profile_image_url,
+    email, phone, location, linkedin_url
+)
 VALUES (
     'Rafael Matthew Satrio',
     'Informatics Engineering Undergraduate | Full-Stack Web Developer',
-    'Informatics Engineering undergraduate at ISTTS Surabaya with hands-on full-stack web development experience across freelance and project engagements. Proficient in JavaScript, TypeScript, React.js, Next.js, Express.js, and Laravel, with practical cloud exposure to GCP and AWS. Strong collaborator and fast learner eager to grow in a professional software development environment.',
+    '["Full-Stack Developer", "Cloud & AI Engineer", "UI/UX Designer"]'::jsonb,
+    'Full-Stack Web Development',
+    'Undergraduate at ISTTS',
+    'Building end-to-end web applications and expanding my expertise in professional software development.',
+    'Informatics Engineering undergraduate at ISTTS Surabaya with hands-on full-stack web development experience across freelance and project engagements. Proficient in JavaScript, TypeScript, React.js, Next.js, Express.js, and Laravel, with practical cloud exposure to GCP and AWS. Delivered end-to-end web applications including a used car marketplace with real-time communication, inventory management systems, and product showcase platforms. Strong collaborator and fast learner eager to grow in a professional software development environment.',
+    'I specialize in building robust web applications using modern web ecosystems like React (Next.js, Remix.js, SolidJS) for the frontend, combined with Express.js or Laravel for the backend. My experience extends to designing real-time communication systems and managing databases like MySQL, PostgreSQL, and MongoDB, deployed on GCP or AWS.',
+    'As a top-performing student (graduated Top 3 in high school) and an active organizational member, I thrive in collaborative environments. I enjoy mentoring, public speaking, and continuously adapting to new challenges in tech.',
+    '["Full-Stack Developer", "Fast Learner", "Strong Collaborator", "Problem Solver", "Adaptable"]'::jsonb,
+    'https://res.cloudinary.com/dtdiwotv1/image/upload/v1783007726/Matthew_pbhxpl.jpg',
     'rafaelmatthew2305@gmail.com',
     '089612378711',
     'Surabaya, Indonesia',
@@ -575,33 +611,56 @@ VALUES
     'https://github.com/Rafael-Matthew/proyek_ai_macanan'
 );
 
--- Skills (Hard Skills & Soft Skills)
-INSERT INTO public.skills (name, category, sort_order) VALUES
-('JavaScript', 'Languages', 1),
-('TypeScript', 'Languages', 2),
-('PHP', 'Languages', 3),
-('Java', 'Languages', 4),
-('Python', 'Languages', 5),
-('Kotlin', 'Languages', 6),
-('React.js', 'Frontend', 7),
-('Next.js', 'Frontend', 8),
-('SolidJS', 'Frontend', 9),
-('SolidStart', 'Frontend', 10),
-('Remix.js', 'Frontend', 11),
-('Express.js', 'Backend', 12),
-('Laravel', 'Backend', 13),
-('MySQL', 'Databases', 14),
-('PostgreSQL', 'Databases', 15),
-('MongoDB', 'Databases', 16),
-('Google Cloud Platform (GCP)', 'Cloud & DevOps', 17),
-('Amazon Web Services (AWS)', 'Cloud & DevOps', 18),
-('Git', 'Cloud & DevOps', 19),
-('Leadership', 'Soft Skills', 20),
-('Problem Solving', 'Soft Skills', 21),
-('Critical Thinking', 'Soft Skills', 22),
-('Adaptability', 'Soft Skills', 23),
-('Public Speaking', 'Soft Skills', 24),
-('Teamwork', 'Soft Skills', 25);
+-- Skills
+INSERT INTO public.skills (name, category, description, sort_order) VALUES
+('JavaScript', 'Languages', 'Core language for dynamic web functionality.', 1),
+('TypeScript', 'Languages', 'Strongly typed JavaScript for scalable applications.', 2),
+('PHP', 'Languages', 'Server-side scripting language.', 3),
+('Java', 'Languages', 'Object-oriented programming language.', 4),
+('Python', 'Languages', 'Versatile language for backend and scripting.', 5),
+('Kotlin', 'Languages', 'Modern language for Android and backend.', 6),
+('GoLang', 'Languages', 'Statically typed, compiled programming language designed at Google.', 7),
+
+('React.js', 'Frontend', 'UI library for interactive component-based interfaces.', 8),
+('Next.js', 'Frontend', 'React framework for production.', 9),
+('SolidJS', 'Frontend', 'Declarative, efficient UI library.', 10),
+('SolidStart', 'Frontend', 'Meta-framework for SolidJS.', 11),
+('Remix.js', 'Frontend', 'Full stack web framework.', 12),
+('Astro', 'Frontend', 'Web framework for building fast, content-focused websites.', 13),
+
+('Express.js', 'Backend', 'Fast, unopinionated, minimalist web framework for Node.js.', 14),
+('Laravel', 'Backend', 'PHP framework for web artisans.', 15),
+('FastAPI', 'Backend', 'Modern, fast web framework for building APIs with Python.', 16),
+
+('MySQL', 'Databases', 'Open-source relational database management system.', 17),
+('PostgreSQL', 'Databases', 'Advanced open source relational database.', 18),
+('MongoDB', 'Databases', 'NoSQL document database for flexible data modeling.', 19),
+('Supabase', 'Databases', 'Open source Firebase alternative.', 20),
+
+('Google Cloud Platform (GCP)', 'Cloud & DevOps', 'Suite of cloud computing services.', 21),
+('Amazon Web Services (AWS)', 'Cloud & DevOps', 'Comprehensive cloud platform.', 22),
+('Git', 'Cloud & DevOps', 'Distributed version control system.', 23),
+('Redhat', 'Cloud & DevOps', 'Enterprise open source solutions and Linux OS.', 24),
+('Blynk IoT', 'Cloud & DevOps', 'IoT platform for connecting devices to the cloud.', 25),
+
+('Cisco', 'Cyber Security', 'Network security, firewall configuration, and infrastructure defense.', 26),
+('Web Auth & Authorization', 'Cyber Security', 'Implementing secure stateless authentication using JWT, OAuth 2.0, and Role-Based Access Control.', 27),
+('Identity Access Mgmt (IAM)', 'Cyber Security', 'Securing application endpoints with JWT, token rotation, and secure cookie strategies.', 28),
+
+('Leadership', 'Soft Skills', 'Guiding and motivating teams to achieve goals.', 29),
+('Problem Solving', 'Soft Skills', 'Analyzing issues and finding effective solutions.', 30),
+('Critical Thinking', 'Soft Skills', 'Objective analysis and evaluation of an issue.', 31),
+('Adaptability', 'Soft Skills', 'Adjusting to new conditions and technologies.', 32),
+('Public Speaking', 'Soft Skills', 'Communicating ideas clearly to an audience.', 33),
+('Teamwork', 'Soft Skills', 'Collaborating effectively with others.', 34),
+
+('Prompt Engineering', 'AI', 'Designing and optimizing prompts for LLMs.', 35),
+('LLMs', 'AI', 'Working with Large Language Models like GPT-4 and Gemini.', 36),
+('AI Integration', 'AI', 'Integrating AI capabilities into web and mobile applications.', 37),
+('scikit-learn', 'AI', 'Machine learning library for Python.', 38),
+('OpenCV', 'AI', 'Computer vision and image processing.', 39),
+('YOLO', 'AI', 'Real-time object detection.', 40),
+('MediaPipe', 'AI', 'Cross-platform ML solutions for live media.', 41);
 
 -- Experiences (Work & College)
 INSERT INTO public.experiences (type, role, organization, period, description, sort_order) VALUES
@@ -619,3 +678,11 @@ INSERT INTO public.experiences (type, role, organization, period, description, s
 INSERT INTO public.education (institution, major, period, gpa, relevant_courses, achievements, sort_order) VALUES
 ('Institut Sains dan Teknologi Terpadu Surabaya (ISTTS)', 'Bachelor of Informatics Engineering', '2022 - Present', '3.43', '["Web Programming Frameworks", "Mobile App Programming", "Software Testing", "Cloud Engineering"]', '[]', 1),
 ('Stella Maris Senior High School', 'Science Track', '2019 - 2022', NULL, '[]', '["Ranked 1st in class at Grade 12", "Ranked 2nd in class at Grade 10", "Graduated as Top 3 Best Student of the cohort"]', 2);
+
+-- Timeline Events
+INSERT INTO public.timeline_events (year, type, message, details, sort_order) VALUES
+('2026', 'deploy', 'feat: built AI-powered portfolio concept (CloudVerse OS)', 'Designed and engineered a highly interactive portfolio showcasing cloud engineering, AI integrations, and advanced frontend skills.', 1),
+('2025', 'commit', 'feat: developed Omuda online shop & inventory system', 'Led the development of a full-stack e-commerce solution using Remix, TypeScript, and MongoDB, significantly reducing inventory sync errors.', 2),
+('2024', 'merge', 'feat: built DawnBase Collaborative Strategy Platform', 'Created a real-time collaborative strategy tool for MLBB esports teams using SolidStart, Socket.io, and KonvaJS.', 3),
+('2023', 'init', 'init: started informatics & software engineering journey', 'Began formal education and deep-dive into full-stack development, algorithms, and cloud technologies.', 4);
+

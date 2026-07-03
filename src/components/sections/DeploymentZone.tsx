@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Server, ExternalLink, Terminal, CheckCircle2, CircleDashed } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { Project } from '@/data/projects';
+import type { Project } from '@/types';
 
 export default function DeploymentZone({ projects }: { projects: Project[] }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);

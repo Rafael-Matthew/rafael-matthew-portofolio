@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { skills, type SkillCategory, type Skill } from '@/data/skills';
 import { Code2, LayoutTemplate, Server, Database, Cloud, Users, Brain, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export default function TechArsenal() {
+export type SkillCategory = 'Languages' | 'Frontend' | 'Backend' | 'Databases' | 'Cloud & DevOps' | 'Cyber Security' | 'Soft Skills' | 'AI';
+
+export type Skill = {
+  name: string;
+  category: SkillCategory;
+  description: string;
+  icon?: string;
+};
+
+export default function TechArsenal({ skills = [] }: { skills: Skill[] }) {
   const [activeCategory, setActiveCategory] = useState<SkillCategory>('Languages');
   const [hoveredSkill, setHoveredSkill] = useState<Skill | null>(null);
 

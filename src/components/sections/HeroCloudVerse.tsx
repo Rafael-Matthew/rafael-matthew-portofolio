@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Server, Cpu, Cloud, ChevronRight, Terminal } from 'lucide-react';
-import { profile } from '@/data/profile';
 
 const initSequence = [
   "Initializing Rafael Matthew Portfolio...",
@@ -10,7 +9,7 @@ const initSequence = [
   "Software Modules Ready..."
 ];
 
-export default function HeroCloudVerse() {
+export default function HeroCloudVerse({ profile }: { profile: any }) {
   const [initIndex, setInitIndex] = useState(0);
   const [isInitialized, setIsInitialized] = useState(false);
 

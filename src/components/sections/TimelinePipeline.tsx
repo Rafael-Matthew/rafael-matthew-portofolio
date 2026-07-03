@@ -2,9 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { GitCommit, GitMerge, Rocket, PlayCircle, Code } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
-import type { Project } from '@/data/projects';
+import type { Project } from '@/types';
 
-export default function TimelinePipeline({ projects = [] }: { projects?: Project[] }) {
+export type TimelineEvent = {
+  id?: string;
+  year: string;
+  type: 'deploy' | 'commit' | 'merge' | 'init';
+  message: string;
+  details: string;
+};
+
+export default function TimelinePipeline({ projects = [], timelineEvents = [] }: { projects?: Project[], timelineEvents?: TimelineEvent[] }) {
   const [selectedYear, setSelectedYear] = useState<string>('');
 
   // Dynamically generate timeline events from projects
@@ -22,27 +30,18 @@ export default function TimelinePipeline({ projects = [] }: { projects?: Project
         type,
         message: `Project: ${project.name}`,
         details: project.impact || project.problem || project.solution || `Developed ${project.name} as a ${project.type} project.`,
-      };
+      } as TimelineEvent;
     });
 
-  // Combine with a fundamental init event at the end
-  const fullTimelineEvents = [
-    ...dynamicEvents,
-    {
-      year: '2022',
-      type: 'init',
-      message: 'init: started informatics & software engineering journey',
-      details: 'Began formal education at ISTTS and deep-dive into full-stack development, algorithms, and cloud technologies.',
-    }
-  ];
+  // Combine projects timeline with Supabase timeline events
+  const fullTimelineEvents = [...dynamicEvents, ...timelineEvents];
 
   // Group events by year
   const groupedEvents = fullTimelineEvents.reduce((acc, event) => {
-    const year = event.year;
-    if (!acc[year]) acc[year] = [];
-    acc[year].push(event);
+    if (!acc[event.year]) acc[event.year] = [];
+    acc[event.year].push(event);
     return acc;
-  }, {} as Record<string, typeof fullTimelineEvents>);
+  }, {} as Record<string, TimelineEvent[]>);
 
   const sortedYears = Object.keys(groupedEvents).sort((a, b) => parseInt(b) - parseInt(a));
 

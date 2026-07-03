@@ -11,10 +11,19 @@ import TimelinePipeline from '@/components/sections/TimelinePipeline';
 import StartHandshake from '@/components/sections/StartHandshake';
 import { supabase } from '@/lib/supabaseClient';
 
-const { data: dbProjects, error } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
+const { data: dbProjects, error: projectsErr } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
+const { data: dbProfile, error: profileErr } = await supabase.from('profiles').select('*').limit(1).single();
+const { data: dbSkills, error: skillsErr } = await supabase.from('skills').select('*').order('sort_order', { ascending: true });
+const { data: dbTimeline, error: timelineErr } = await supabase.from('timeline_events').select('*').order('sort_order', { ascending: true });
 
-if (error) {
-  console.error("Supabase fetch error in index.astro:", error);
+console.log("== DEBUG FETCH ==");
+console.log("profileErr:", profileErr);
+console.log("dbProfile raw:", dbProfile);
+console.log("dbSkills length:", dbSkills?.length);
+console.log("dbTimeline length:", dbTimeline?.length);
+
+if (projectsErr || profileErr || skillsErr || timelineErr) {
+  console.error("Supabase fetch error in index.astro:", { projectsErr, profileErr, skillsErr, timelineErr });
 }
 
 const fetchedProjects = dbProjects?.map((p: any) => ({
@@ -33,18 +42,53 @@ const fetchedProjects = dbProjects?.map((p: any) => ({
   githubUrl: p.github_url || '#',
   focus: p.focus || ['Developer'],
 })) || [];
+
+const fallbackProfile = {
+  name: "Loading...",
+  avatarUrl: "",
+  roles: ["Loading..."],
+  focus: "",
+  location: "",
+  status: "",
+  liveStatus: "",
+  professionalSummary: "",
+  technicalSide: "",
+  personalSide: "",
+  badges: []
+};
+
+const formattedProfile = dbProfile ? {
+  name: dbProfile.full_name,
+  avatarUrl: dbProfile.profile_image_url,
+  roles: dbProfile.roles || [],
+  focus: dbProfile.focus,
+  location: dbProfile.location,
+  status: dbProfile.status,
+  liveStatus: dbProfile.live_status,
+  professionalSummary: dbProfile.professional_summary,
+  technicalSide: dbProfile.technical_side,
+  personalSide: dbProfile.personal_side,
+  badges: dbProfile.badges || []
+} : fallbackProfile;
+const errorMsg = projectsErr?.message || profileErr?.message || skillsErr?.message || timelineErr?.message;
 ---
 
 <Layout>
+  {errorMsg && (
+    <div class="fixed top-0 left-0 w-full bg-red-600 text-white p-4 z-50 text-center font-bold font-mono">
+      SUPABASE DB ERROR: {errorMsg} <br/>
+      (Apakah Anda sudah menjalankan init.sql di SQL Editor Supabase Anda?)
+    </div>
+  )}
   <MissionNav client:load />
   
   <main class="relative w-full flex flex-col">
-    <HeroCloudVerse client:load />
+    <HeroCloudVerse client:load profile={formattedProfile} />
     <CloudIntelligenceEngine client:load projects={fetchedProjects} />
-    <IdentityCore client:load />
-    <TechArsenal client:load />
+    <IdentityCore client:load profile={formattedProfile} />
+    <TechArsenal client:load skills={dbSkills || []} />
     <DeploymentZone client:load projects={fetchedProjects} />
-    <TimelinePipeline client:load projects={fetchedProjects} />
+    <TimelinePipeline client:load projects={fetchedProjects} timelineEvents={dbTimeline || []} />
     
 
 

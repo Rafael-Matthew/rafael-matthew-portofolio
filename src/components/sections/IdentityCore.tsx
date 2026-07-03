@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { profile } from '@/data/profile';
 import { User, Code2, Heart, MapPin, Activity, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Tab = 'professional' | 'technical' | 'personal';
 
-export default function IdentityCore() {
+export default function IdentityCore({ profile }: { profile: any }) {
   const [activeTab, setActiveTab] = useState<Tab>('professional');
 
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [

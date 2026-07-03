@@ -27,7 +27,7 @@ import {
   Briefcase
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { Project } from '@/data/projects';
+import type { Project } from '@/types';
 
 // --- DATA DEFINITIONS ---
 
