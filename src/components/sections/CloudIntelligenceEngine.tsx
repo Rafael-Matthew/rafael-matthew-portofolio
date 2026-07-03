@@ -425,7 +425,7 @@ export default function CloudIntelligenceEngine({ projects = [] }: { projects?: 
             </div>
 
             {/* 4. Experiment Result Insight */}
-            <div className="flex flex-col gap-3 h-[370px]">
+            <div className="flex flex-col gap-3 flex-1 min-h-[300px] lg:min-h-0">
               <h3 className="text-sm font-bold text-[#64748B] flex items-center gap-2 mb-1 shrink-0">
                 <Cpu className="w-4 h-4" /> Result Insight
               </h3>
