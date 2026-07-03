@@ -127,7 +127,7 @@ export default function IdentityCore({ profile }: { profile: any }) {
 
           <div className="mt-8 pt-6 border-t border-slate-100">
             <div className="flex flex-wrap gap-2">
-              {profile.badges.map((badge, i) => (
+              {profile.badges.map((badge: string, i: number) => (
                 <span key={i} className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-text-muted border border-slate-200">
                   {badge}
                 </span>
