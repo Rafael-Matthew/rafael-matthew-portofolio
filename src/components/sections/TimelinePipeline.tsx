@@ -67,7 +67,7 @@ export default function TimelinePipeline({ projects = [], timelineEvents = [] }:
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-50px" }}
+          viewport={{ once: true, margin: "-50px" }}
           className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12"
         >
           <div className="flex items-center gap-3">
@@ -104,7 +104,7 @@ export default function TimelinePipeline({ projects = [], timelineEvents = [] }:
           <motion.div 
             initial={{ height: 0 }}
             whileInView={{ height: "100%" }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ duration: 2, ease: "easeInOut" }}
             className="absolute left-[-1px] top-0 w-0.5 bg-gradient-to-b from-primary via-secondary to-slate-200"
           />
@@ -151,7 +151,7 @@ export default function TimelinePipeline({ projects = [], timelineEvents = [] }:
                         key={event.message + index} 
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: false, margin: "-50px" }}
+                        viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         className="relative pl-8 md:pl-12"
                       >
@@ -159,7 +159,7 @@ export default function TimelinePipeline({ projects = [], timelineEvents = [] }:
                         <motion.div 
                           initial={{ scale: 0 }}
                           whileInView={{ scale: 1 }}
-                          viewport={{ once: false, margin: "-50px" }}
+                          viewport={{ once: true, margin: "-50px" }}
                           transition={{ type: "spring", stiffness: 300, delay: 0.1 }}
                           className={cn(
                             "absolute -left-[17px] top-1 w-8 h-8 rounded-full border-4 flex items-center justify-center z-10",
