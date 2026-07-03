@@ -3,7 +3,8 @@ export const profile = {
   avatarUrl: "https://res.cloudinary.com/dtdiwotv1/image/upload/v1783007726/Matthew_pbhxpl.jpg",
   roles: [
     "Full-Stack Developer",
-    "Frontend Developer"
+    "Cloud & AI Engineer",
+    "UI/UX Designer"
   ],
   focus: "Full-Stack Web Development",
   location: "Surabaya, Indonesia",

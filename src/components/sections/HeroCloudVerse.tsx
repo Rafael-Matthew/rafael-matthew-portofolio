@@ -40,7 +40,7 @@ export default function HeroCloudVerse() {
         setCurrentText(prev => prev.slice(0, -1));
         if (currentText.length <= 1) {
           setIsDeleting(false);
-          setCurrentRoleIndex((prev) => (prev + 1) % profile.roles.length);
+          setCurrentRoleIndex((currentRoleIndex + 1) % profile.roles.length);
         }
       }, 50);
     } else {
