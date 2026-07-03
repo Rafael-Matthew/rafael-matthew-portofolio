@@ -657,7 +657,7 @@ INSERT INTO public.skills (name, category, description, sort_order) VALUES
 ('Prompt Engineering', 'AI', 'Designing and optimizing prompts for LLMs.', 35),
 ('LLMs', 'AI', 'Working with Large Language Models like GPT-4 and Gemini.', 36),
 ('AI Integration', 'AI', 'Integrating AI capabilities into web and mobile applications.', 37),
-('scikit-learn', 'AI', 'Machine learning library for Python.', 38),
+('scikit-learn (ML)', 'AI', 'Machine learning library for Python.', 38),
 ('OpenCV', 'AI', 'Computer vision and image processing.', 39),
 ('YOLO', 'AI', 'Real-time object detection.', 40),
 ('MediaPipe', 'AI', 'Cross-platform ML solutions for live media.', 41);
