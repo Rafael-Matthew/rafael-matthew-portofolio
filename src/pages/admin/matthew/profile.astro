@@ -1,0 +1,20 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+import AuthGuard from '@/components/admin/AuthGuard';
+import AdminSidebar from '@/components/admin/AdminSidebar';
+import ProfileManager from '@/components/admin/ProfileManager';
+---
+
+<AdminLayout title="Profile Admin">
+  <AuthGuard client:only="react" />
+  <div class="flex h-screen overflow-hidden w-full">
+    <aside class="w-64 shrink-0 z-50">
+      <AdminSidebar currentPath="/admin/matthew/profile" client:load />
+    </aside>
+    <main class="flex-1 overflow-y-auto p-8 min-w-0">
+      <div class="max-w-6xl mx-auto w-full">
+        <ProfileManager client:load />
+      </div>
+    </main>
+  </div>
+</AdminLayout>

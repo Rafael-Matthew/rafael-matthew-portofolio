@@ -27,7 +27,7 @@ if (projectsErr || profileErr || skillsErr || timelineErr) {
 }
 
 const fetchedProjects = dbProjects?.map((p: any) => ({
-  id: p.slug,
+  id: p.id,
   name: p.title,
   status: p.status,
   type: p.category,
