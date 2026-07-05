@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { User, Code2, Heart, MapPin, Activity, ShieldCheck } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { User, Code2, Heart } from 'lucide-react';
 
 type Tab = 'professional' | 'technical' | 'personal';
 
@@ -9,132 +8,159 @@ export default function IdentityCore({ profile }: { profile: any }) {
   const [activeTab, setActiveTab] = useState<Tab>('professional');
 
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
-    { id: 'professional', label: 'Professional Summary', icon: <User className="w-4 h-4" /> },
-    { id: 'technical', label: 'Technical Side', icon: <Code2 className="w-4 h-4" /> },
-    { id: 'personal', label: 'Personal Side', icon: <Heart className="w-4 h-4" /> },
+    { id: 'professional', label: 'Professional', icon: <User className="w-4 h-4" /> },
+    { id: 'technical', label: 'Technical', icon: <Code2 className="w-4 h-4" /> },
+    { id: 'personal', label: 'Personal', icon: <Heart className="w-4 h-4" /> },
   ];
 
+  // Variants untuk animasi scroll masuk dan keluar
+  const textContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    },
+    exit: { opacity: 0, transition: { duration: 0.3 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: "easeOut" as const } 
+    }
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, x: 50, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      scale: 1, 
+      transition: { duration: 0.8, ease: "easeOut" as const, delay: 0.3 } 
+    },
+    exit: { opacity: 0, x: 50, scale: 0.95, transition: { duration: 0.4 } }
+  };
+
   return (
-    <section id="identity-core" className="py-20 px-4 w-full">
-      <div className="max-w-5xl mx-auto glass-card p-8 md:p-12">
-        <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-          <ShieldCheck className="w-6 h-6" />
-        </div>
-        <div>
-          <h2 className="text-3xl font-bold text-text-main">Identity Core</h2>
-          <p className="text-text-muted">System Profile & Focus Areas</p>
-        </div>
-      </div>
+    <section id="identity-core" className="py-20 md:py-32 px-4 md:px-8 w-full min-h-[80vh] flex items-center overflow-hidden">
+      {/* Wadah Utama: Satu Glass Card Besar yang Menyatu */}
+      <div className="max-w-7xl mx-auto w-full glass-card bg-white/60 backdrop-blur-2xl rounded-[3rem] shadow-2xl border border-white/60 p-8 md:p-12 lg:p-16 relative overflow-hidden">
+        
+        {/* Ornamen Latar Opsional di dalam Card */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -z-10 -translate-x-1/2 translate-y-1/2"></div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-        {/* Left Card: Main System Info */}
-        <div className="glass-card p-6 md:col-span-4 flex flex-col justify-between">
-          <div>
-            <div className="flex flex-col items-center text-center mb-6">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent mb-4 shadow-lg shadow-primary/20 flex items-center justify-center overflow-hidden border-2 border-primary/20">
-                <img 
-                  src={profile.avatarUrl} 
-                  alt={profile.name} 
-                  className="w-full h-full object-cover object-[50%_15%]"
-                />
-              </div>
-              <h3 className="text-xl font-bold text-text-main">{profile.name}</h3>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center relative z-10">
+          
+          {/* Kolom Kiri: Teks & Tombol */}
+          <motion.div 
+            className="flex flex-col justify-center text-center lg:text-left"
+            variants={textContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            exit="exit"
+            viewport={{ once: false, amount: 0.3 }}
+          >
+            <motion.h1 
+              variants={itemVariants}
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight mb-4"
+            >
+              Hi, I'm <span className="text-primary">{profile.name}</span>
+            </motion.h1>
             
-            <p className="text-primary font-medium text-sm mb-4 text-left">{profile.roles.join(' + ')}</p>
+            <motion.h2 
+              variants={itemVariants}
+              className="text-xl md:text-2xl lg:text-3xl font-bold text-slate-600 mb-6"
+            >
+              {profile.roles ? profile.roles[0] : 'Frontend Developer'}
+            </motion.h2>
             
-            <div className="space-y-3 text-sm text-text-muted text-left">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-secondary" /> {profile.location}
-              </div>
-              <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-success" /> {profile.status}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-slate-100 text-left">
-            <p className="text-xs text-text-muted font-mono bg-slate-50 p-3 rounded-lg border border-slate-100">
-              <span className="text-primary font-bold">Focus:</span> {profile.focus}
-              <br/>
-              <span className="text-secondary font-bold mt-2 block">Live Status:</span>
-              {profile.liveStatus}
-            </p>
-          </div>
-        </div>
-
-        {/* Right Card: Tabs & Content */}
-        <div className="glass-card p-6 md:col-span-8 flex flex-col">
-          <div className="flex overflow-x-auto no-scrollbar justify-between md:justify-start gap-2 mb-6 border-b border-slate-100 pb-4">
-            {tabs.map(tab => (
-              <div
-                role="button"
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap cursor-pointer select-none flex-1 md:flex-none justify-center md:justify-start",
-                  activeTab === tab.id 
-                    ? "bg-primary text-white shadow-md" 
-                    : "text-text-muted hover:bg-slate-50 hover:text-text-main"
-                )}
-              >
-                {tab.icon} <span className="hidden md:block">{tab.label}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex-1 relative min-h-[200px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="w-full text-text-muted leading-relaxed"
-              >
-                {activeTab === 'professional' && (
-                  <div className="space-y-4">
-                    <h4 className="md:hidden font-bold text-text-main text-lg mb-2">Professional Summary</h4>
-                    <p>{profile.professionalSummary}</p>
-                    <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl text-primary mt-4 text-sm font-medium">
-                      ✨ Quick Highlight: Proven track record in delivering scalable full-stack applications with measurable impact on operational efficiency.
-                    </div>
-                  </div>
-                )}
-                {activeTab === 'technical' && (
-                  <div className="space-y-4">
-                    <h4 className="md:hidden font-bold text-text-main text-lg mb-2">Technical Side</h4>
-                    <p>{profile.technicalSide}</p>
-                    <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl text-primary mt-4 text-sm font-mono">
-                      // Dev Note: Heavily utilizing TypeScript for end-to-end type safety, deploying via Vercel Edge Functions, and managing state with Zustand/Nanostores.
-                    </div>
-                  </div>
-                )}
-                {activeTab === 'personal' && (
-                  <div className="space-y-4">
-                    <h4 className="md:hidden font-bold text-text-main text-lg mb-2">Personal Side</h4>
-                    <p>{profile.personalSide}</p>
-                    <div className="bg-purple-50 border border-purple-100 p-4 rounded-xl text-accent mt-4 text-sm">
-                      🎮 Fun Fact: I spend my free time exploring new UI animations and optimizing terminal configurations!
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-slate-100">
-            <div className="flex flex-wrap gap-2">
-              {profile.badges.map((badge: string, i: number) => (
-                <span key={i} className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-text-muted border border-slate-200">
-                  {badge}
-                </span>
+            {/* Navigasi Tab */}
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-2 mb-6 justify-center lg:justify-start">
+              {tabs.map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                    activeTab === tab.id
+                      ? 'bg-primary text-white shadow-md shadow-primary/20 scale-105'
+                      : 'bg-white/50 text-slate-600 hover:bg-white/80 hover:text-slate-800 border border-transparent hover:border-slate-200'
+                  }`}
+                >
+                  {tab.icon} {tab.label}
+                </button>
               ))}
+            </motion.div>
+            
+            {/* Konten Tab */}
+            <motion.div variants={itemVariants} className="mb-8 max-w-lg mx-auto lg:mx-0 relative">
+              {/* Ghost element untuk menjaga tinggi wadah tetap stabil sesuai teks terpanjang secara responsif */}
+              <div className="invisible pointer-events-none text-slate-600 text-base md:text-lg leading-relaxed font-medium" aria-hidden="true">
+                <p>{profile.professionalSummary}</p>
+              </div>
+
+              {/* Konten aktual yang dianimasikan */}
+              <div className="absolute top-0 left-0 w-full h-full">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-slate-600 text-base md:text-lg leading-relaxed font-medium"
+                  >
+                    {activeTab === 'professional' && <p>{profile.professionalSummary}</p>}
+                    {activeTab === 'technical' && <p>{profile.technicalSide}</p>}
+                    {activeTab === 'personal' && <p>{profile.personalSide}</p>}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+            >
+              <a 
+                href="#contact" 
+                className="px-8 py-3.5 bg-primary text-white font-semibold rounded-xl shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all flex items-center justify-center hover:-translate-y-1 w-full sm:w-auto"
+              >
+                Hire Me
+              </a>
+              <a 
+                href="#projects" 
+                className="px-8 py-3.5 bg-white/50 text-primary font-semibold rounded-xl border-2 border-primary/40 hover:border-primary hover:bg-white/80 backdrop-blur-sm transition-all flex items-center justify-center w-full sm:w-auto"
+              >
+                See Projects
+              </a>
+            </motion.div>
+          </motion.div>
+
+          {/* Kolom Kanan: Gambar */}
+          <motion.div 
+            className="relative flex justify-center lg:justify-end items-end h-full mt-10 lg:mt-0"
+            variants={imageVariants}
+            initial="hidden"
+            whileInView="visible"
+            exit="exit"
+            viewport={{ once: false, amount: 0.3 }}
+          >
+            <div className="relative w-full max-w-sm lg:max-w-md xl:max-w-lg flex justify-center items-end">
+              <img 
+                src={profile.avatarUrl} 
+                alt={profile.name} 
+                className="w-full h-auto object-contain drop-shadow-2xl"
+                style={{ maxHeight: '600px' }}
+              />
             </div>
-          </div>
-        </div>
+          </motion.div>
+
         </div>
       </div>
     </section>
