@@ -248,7 +248,7 @@ VALUES (
     'I specialize in building robust web applications using modern web ecosystems like React (Next.js, Remix.js, SolidJS) for the frontend, combined with Express.js or Laravel for the backend. My experience extends to designing real-time communication systems and managing databases like MySQL, PostgreSQL, and MongoDB, deployed on GCP or AWS.',
     'As a top-performing student (graduated Top 3 in high school) and an active organizational member, I thrive in collaborative environments. I enjoy mentoring, public speaking, and continuously adapting to new challenges in tech.',
     '["Full-Stack Developer", "Fast Learner", "Strong Collaborator", "Problem Solver", "Adaptable"]'::jsonb,
-    'https://res.cloudinary.com/dtdiwotv1/image/upload/v1783281185/Matthew-removebg-preview_swzxap.png',
+    'https://res.cloudinary.com/dtdiwotv1/image/upload/v1783609337/full_body_original.jpg_u4qz9d.jpg',
     'rafaelmatthew2305@gmail.com',
     '089612378711',
     'Surabaya, Indonesia',
