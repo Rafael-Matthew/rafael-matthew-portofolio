@@ -85,7 +85,6 @@ CREATE TABLE public.skills (
     name TEXT NOT NULL,
     category TEXT NOT NULL,
     description TEXT,
-    level TEXT,
     icon TEXT,
     sort_order INTEGER DEFAULT 0,
     created_at TIMESTAMPTZ DEFAULT NOW()

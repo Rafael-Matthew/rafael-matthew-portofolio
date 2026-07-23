@@ -120,12 +120,15 @@ export default function TechArsenal({ skills = [] }: { skills: Skill[] }) {
                       onMouseEnter={() => setHoveredSkill(skill)}
                       onMouseLeave={() => setHoveredSkill(null)}
                       className={cn(
-                        "px-6 py-4 bg-white rounded-2xl shadow-sm border border-slate-100 cursor-pointer transition-all duration-300",
+                        "w-32 px-4 py-6 bg-white rounded-2xl shadow-sm border border-slate-100 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center gap-3 text-center",
                         "hover:shadow-lg hover:-translate-y-1 hover:bg-slate-50",
                         getHoverClass(activeCategory)
                       )}
                     >
-                      <span className="font-semibold text-text-main">{skill.name}</span>
+                      {skill.icon && (
+                        <img src={skill.icon} alt={skill.name} className="w-12 h-12 object-contain drop-shadow-sm" />
+                      )}
+                      <span className="font-semibold text-sm text-text-main leading-tight">{skill.name}</span>
                     </motion.div>
                   ))}
                 </motion.div>

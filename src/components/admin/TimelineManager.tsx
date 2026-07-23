@@ -46,15 +46,29 @@ export default function TimelineManager() {
     e.preventDefault();
     setSaving(true);
     
+    const dataToSave = { ...formData };
+    let saveError = null;
+
     if (editingId === 'new') {
-      await supabase.from('timeline_events').insert(formData);
+      const { error } = await supabase.from('timeline_events').insert(dataToSave);
+      saveError = error;
     } else {
-      await supabase.from('timeline_events').update(formData).eq('id', editingId);
+      delete dataToSave.id;
+      delete dataToSave.created_at;
+      delete dataToSave.updated_at;
+      const { error } = await supabase.from('timeline_events').update(dataToSave).eq('id', editingId);
+      saveError = error;
     }
     
     setSaving(false);
-    setEditingId(null);
-    fetchEvents();
+    
+    if (saveError) {
+      console.error("Save error:", saveError);
+      alert("Failed to save event: " + saveError.message);
+    } else {
+      setEditingId(null);
+      fetchEvents();
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {

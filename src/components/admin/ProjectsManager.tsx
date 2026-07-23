@@ -61,6 +61,9 @@ export default function ProjectsManager() {
       const { error } = await supabase.from('projects').insert(dataToSave);
       saveError = error;
     } else {
+      delete dataToSave.id;
+      delete dataToSave.created_at;
+      delete dataToSave.updated_at;
       const { error } = await supabase.from('projects').update(dataToSave).eq('id', editingId);
       saveError = error;
     }

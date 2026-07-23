@@ -28,13 +28,20 @@ export default function ProfileManager() {
     if (typeof dataToSave.badges === 'string') {
       dataToSave.badges = dataToSave.badges.split(',').map((b: string) => b.trim()).filter(Boolean);
     }
-    if (typeof dataToSave.focus === 'string') {
-      dataToSave.focus = dataToSave.focus.split(',').map((f: string) => f.trim()).filter(Boolean);
-    }
 
-    await supabase.from('profiles').update(dataToSave).eq('id', profile.id);
+    delete dataToSave.id;
+    delete dataToSave.created_at;
+    delete dataToSave.updated_at;
+
+    const { error } = await supabase.from('profiles').update(dataToSave).eq('id', profile.id);
     setSaving(false);
-    alert('Profile updated successfully!');
+    
+    if (error) {
+      console.error('Error updating profile:', error);
+      alert('Failed to update profile: ' + error.message);
+    } else {
+      alert('Profile updated successfully!');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -113,8 +120,8 @@ export default function ProfileManager() {
             <textarea name="roles" value={Array.isArray(profile?.roles) ? profile.roles.join(', ') : (profile?.roles || '')} onChange={handleChange} rows={2} className="w-full bg-white/50 border border-white/40 rounded-xl p-3 text-text-main placeholder-text-muted/50 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all" />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-text-main">Focus Area (comma separated)</label>
-            <textarea name="focus" value={Array.isArray(profile?.focus) ? profile.focus.join(', ') : (profile?.focus || '')} onChange={handleChange} rows={2} className="w-full bg-white/50 border border-white/40 rounded-xl p-3 text-text-main placeholder-text-muted/50 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all" />
+            <label className="text-sm font-medium text-text-main">Focus Area</label>
+            <textarea name="focus" value={profile?.focus || ''} onChange={handleChange} rows={2} className="w-full bg-white/50 border border-white/40 rounded-xl p-3 text-text-main placeholder-text-muted/50 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all" />
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-text-main">Badges (comma separated)</label>

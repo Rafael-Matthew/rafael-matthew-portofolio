@@ -6,7 +6,6 @@ type Skill = {
   id: string;
   name: string;
   category: string;
-  proficiency_level: number | null;
   icon: string | null;
   sort_order: number;
 };
@@ -84,16 +83,7 @@ export default function SkillGrid({ initialSkills }: SkillGridProps) {
                           {skill.category}
                         </span>
                         
-                        {skill.proficiency_level && (
-                          <div className="w-full mt-5 h-1.5 bg-background rounded-full overflow-hidden shadow-inner">
-                            <motion.div 
-                              initial={{ width: 0 }}
-                              whileInView={{ width: `${skill.proficiency_level}%` }}
-                              transition={{ duration: 1, delay: 0.2 }}
-                              className="h-full bg-primary rounded-full shadow-[0_0_10px_rgba(255,145,0,0.5)]"
-                            />
-                          </div>
-                        )}
+
                       </motion.div>
                     );
                   })}
@@ -124,16 +114,7 @@ export default function SkillGrid({ initialSkills }: SkillGridProps) {
                           {skill.category}
                         </span>
                         
-                        {skill.proficiency_level && (
-                          <div className="w-full mt-5 h-1.5 bg-background rounded-full overflow-hidden shadow-inner">
-                            <motion.div 
-                              initial={{ width: 0 }}
-                              whileInView={{ width: `${skill.proficiency_level}%` }}
-                              transition={{ duration: 1, delay: 0.2 }}
-                              className="h-full bg-primary rounded-full shadow-[0_0_10px_rgba(255,145,0,0.5)]"
-                            />
-                          </div>
-                        )}
+
                       </motion.div>
                     );
                   })}
@@ -164,16 +145,7 @@ export default function SkillGrid({ initialSkills }: SkillGridProps) {
                       {skill.category}
                     </span>
                     
-                    {skill.proficiency_level && (
-                      <div className="w-full mt-5 h-1.5 bg-background rounded-full overflow-hidden shadow-inner">
-                        <motion.div 
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.proficiency_level}%` }}
-                          transition={{ duration: 1, delay: 0.2 }}
-                          className="h-full bg-primary rounded-full shadow-[0_0_10px_rgba(255,145,0,0.5)]"
-                        />
-                      </div>
-                    )}
+
                   </motion.div>
                 );
               })}
